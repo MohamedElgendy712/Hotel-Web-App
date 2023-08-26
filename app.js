@@ -1,6 +1,7 @@
 const express = require("express")
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 //Controllers
 const storeUserController = require('./controllers/storeUser')
@@ -12,6 +13,7 @@ mongoose.connect('mongodb+srv://mohamed:mo7121998@cluster0.myzh7ct.mongodb.net/h
 const app = express();
 
 //set up middlewares
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 
