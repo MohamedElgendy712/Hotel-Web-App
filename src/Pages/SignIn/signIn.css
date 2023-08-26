@@ -1,0 +1,77 @@
+.sign-in {
+    display: flex;
+    height: 100vh;
+}
+
+.sign-in .form {
+    flex-basis: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sign-in .form-container {
+    width: 100%;
+    background-color: var(--white);
+    padding:  16px;
+}
+
+.sign-in .signin-bg{
+    display: none;
+}
+
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 767px) {
+    .sign-in{
+        background-image: url('../../Imgs/bg.jpg');
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* @media only screen and (min-width: 600px) {} */
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+
+    .sign-in .form,
+    .sign-in .signin-bg {
+        flex-basis: 50%;
+    }
+
+    .sign-in .form-container {
+        max-width: 350px;
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
+
+    .sign-in .signin-bg {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-image: url('../../Imgs/bg.jpg');
+    }
+
+    .sign-in .signin-bg p{
+        font-size: 54px;
+        font-weight: bold;
+        margin-top: 32px;
+        color: var(--white);
+    }
+
+    .sign-in .signin-bg p:nth-child(1){
+        color: var(--main-color);
+    }
+    .sign-in .signin-bg p:nth-child(2){
+        color: var(--secondry-color);
+    }
+    .sign-in .signin-bg p:nth-child(3){
+        color: var(--white);
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
