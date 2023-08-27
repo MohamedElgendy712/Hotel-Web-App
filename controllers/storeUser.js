@@ -9,6 +9,8 @@ module.exports = (req , res , next) =>{
     })
     .catch((err) =>{
         let signupFormErrors = Object.keys(err.errors).map(key => err.errors[key].message)
+        res.statusCode = 500
+        res.setHeader("content-type" , "application/json")
         res.json(signupFormErrors)
     })
 }
