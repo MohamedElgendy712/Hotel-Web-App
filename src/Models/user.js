@@ -1,17 +1,17 @@
 export class User{
 
     firstName = '';
-    secondName = '';
+    lastName = '';
     email= '';
     phone= '';
     birthDate= '';
     password= '';
 
-    constructor(firstName , secondName , email, phoneNumber , birthDate , password){
+    constructor(firstName , lastName , email, phoneNumber , birthDate , password){
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.email = email;
-        this.phoneNumber = phoneNumber;
+        this.phone = phoneNumber;
         this.birthDate = birthDate;
         this.password = password;
     }

@@ -27,12 +27,15 @@ const LogIn = () => {
     const onLogIn = ()=>{
         validateForm()
 
-        axios.post("url" , {email : email , password : password})
+        axios.post("http://localhost:3000/user/login" , {email : email , password : password})
         .then(response =>{
-
+            console.log(response)
         })
         .catch(error => {
-
+            Store.addNotification({
+                ...notification,
+                message: error.response.data.errorMsg
+            });
         })
     }
 

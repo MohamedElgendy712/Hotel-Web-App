@@ -32,16 +32,21 @@ const SignIn = () => {
     }
 
     const onSignIn = ()=>{
-        validateForm()
+        if(!validateForm()) return
 
         const user = new User(firstName , lastName , email , phoneNumber , birthDate , password)
 
-        axios.post("url" , user)
+        axios.post("http://localhost:3000/user/register" , user)
         .then(response =>{
-
+            console.log(response)
         })
         .catch(error => {
-
+            error.response.data.map(err =>{
+                Store.addNotification({
+                    ...notification,
+                    message: err
+                });
+            })
         })
     }
 
@@ -52,6 +57,8 @@ const SignIn = () => {
                 ...notification,
                 message: "Invalid Email Format"
             });
+
+            return false
         }
 
         if(password.length < 8){
@@ -59,6 +66,8 @@ const SignIn = () => {
                 ...notification,
                 message: "password length must be at least 8 character"
             })
+
+            return false
         }
 
         if(password !== confirmPassword){
@@ -66,7 +75,11 @@ const SignIn = () => {
                 ...notification,
                 message: "Password and Confirmed Password are not same"
             })
+
+            return false
         }
+
+        return true
     }
 
     return (
