@@ -5,11 +5,16 @@
     --secondry-color: #006ce4;
     --white: #fff;
     --light-gray: #e0e0e0;
+    --gray : #787A91;
     --red: #ED2B2A;
     --black: #000;
 
     /* Transitions */
     --transition-time: .3s;
+
+    /*Padding*/
+    --page-padd-desktop: 0px 30px;
+    --page-padd-mobile: 0px 20px;
 }
 
 /* General Styels */

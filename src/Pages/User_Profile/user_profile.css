@@ -1,0 +1,76 @@
+.user-profile{
+    padding: var(--page-padd-mobile);
+}
+
+.user-profile .user-info{
+
+}
+
+.user-profile .user-info .profile-picture,
+.user-profile .user-info .info{
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.user-profile .user-info .profile-picture{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.user-profile .user-info .profile-picture .name{
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--secondry-color);
+    margin-top: 16px;
+}
+
+.user-profile .user-info .info{
+   
+}
+.user-profile .user-info .info .info-item{
+    display: flex;
+    align-items: center;
+    padding-top: 16px;
+    padding-bottom: 16px;
+}
+.user-profile .user-info .info .info-item:not(:last-child){
+    border-bottom: 1px solid var(--secondry-color);
+}
+.user-profile .user-info .info .info-item svg{
+    font-size: 24px;
+    color: var(--secondry-color);
+    margin-right: 8px;
+}
+.user-profile .user-info .info .info-item p{
+    font-size: 18px;
+    font-weight: 500;
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 767px) {
+  
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .user-profile{
+        padding: var(--page-padd-desktop);
+    }
+    .user-profile .user-info{
+        max-width: 360px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}

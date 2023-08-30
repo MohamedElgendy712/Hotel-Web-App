@@ -1,0 +1,44 @@
+.reservation-card{
+    width: 350px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.reservation-card .reserv-img{
+    max-width: 100%;
+}
+
+.reservation-card .info-container{
+    padding: 16px;
+}
+.reservation-card .name{
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--secondry-color);
+    
+    margin-bottom: 8px;
+}
+
+.reservation-card .location{
+    color: var(--gray);
+    margin-bottom: 16px;
+}
+
+.reservation-card .review{
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+}
+.reservation-card .review .rate{
+    padding: 8px;
+    background-color: var(--main-color);
+    color: var(--white);
+    border-radius: 5px;
+    margin-right: 16px;
+}
+.reservation-card .review .no-reviews{
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--black)
+}
