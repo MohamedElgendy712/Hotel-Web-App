@@ -1,8 +1,9 @@
 .reservation-card{
-    width: 350px;
+    /* width: 350px; */
     box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     border-radius: 8px;
     overflow: hidden;
+    margin: 5px 7px;
 }
 
 .reservation-card .reserv-img{
@@ -41,4 +42,13 @@
     font-size: 18px;
     font-weight: 500;
     color: var(--black)
+}
+.reservation-card .view-more-less-btn{
+    color: var(--secondry-color);
+    cursor: pointer;
+    text-decoration: underline;
+    font-weight: 500;
+}
+.reservation-card .view-more-less-btn:hover{
+    color: var(--main-color);
 }

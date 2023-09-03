@@ -1,12 +1,36 @@
 import React from 'react';
-import {HiOutlineMail , HiOutlinePhone} from 'react-icons/hi'
-import {LiaBirthdayCakeSolid} from 'react-icons/lia'
+import { HiOutlineMail, HiOutlinePhone } from 'react-icons/hi'
+import { LiaBirthdayCakeSolid } from 'react-icons/lia'
+import Carousel from 'react-grid-carousel'
 
 import './user_profile.css'
 import avatar from '../../Imgs/user.png'
+import ReservationCard from '../../Components/Reservation_Card/reservationCard';
 
 
 const UserProfile = () => {
+
+    const responsiveLayout = [
+        {
+            breakpoint: 950,
+            cols: 1,
+            rows: 1,
+          },
+        {
+          breakpoint: 1200,
+          cols: 2,
+          rows: 1,
+       
+       
+        },
+        {
+            breakpoint: 2200,
+            cols: 3,
+            rows: 1,
+      
+          },
+      ]
+
     return (
         <div className='user-profile'>
 
@@ -37,15 +61,42 @@ const UserProfile = () => {
 
             <div className="reservations">
                 <div className="confirmed-reservation">
-                    <div>
-                        <h2 className="title">Booked Travels</h2>
-                        <p>view more</p>
+
+                    <div className='section-header'>
+                        <h2 className="title">Reservations</h2>
+                        <p>view all</p>
                     </div>
                     <div className="reservations-container">
-
+                        <Carousel responsiveLayout={responsiveLayout}  cols={3} rows={1} gap={0}>
+                            <Carousel.Item className='test'>
+                                <ReservationCard />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <ReservationCard />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <ReservationCard />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <ReservationCard />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <ReservationCard />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <ReservationCard />
+                            </Carousel.Item>
+                            <Carousel.Item>
+                                <ReservationCard />
+                            </Carousel.Item>
+                            
+                        </Carousel>
                     </div>
                 </div>
             </div>
+
+
+
         </div>
     );
 }

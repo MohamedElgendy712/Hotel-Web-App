@@ -49,6 +49,22 @@
     font-weight: 500;
 }
 
+.user-profile .reservations{
+    margin-top: 24px;
+}
+.user-profile .reservations .section-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+.user-profile .reservations .title{
+    color: var(--secondry-color);
+    font-size: 30px;
+    
+    margin-bottom: 8px;
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 767px) {
   
@@ -61,9 +77,17 @@
 @media only screen and (min-width: 768px) {
     .user-profile{
         padding: var(--page-padd-desktop);
+        display: flex;
     }
     .user-profile .user-info{
-        max-width: 360px;
+        width: 360px;
+        margin-right: 24px;
+    }
+
+    .user-profile .reservations{
+        flex-basis: 1;
+        overflow: hidden;
+        margin-top: 0px;
     }
 }
 
