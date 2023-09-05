@@ -22,8 +22,8 @@ module.exports = (req , res , next) => {
             })
         }else{
             res.statusCode = 404
-                    res.setHeader("content-type","application/json")
-                    res.json({"errorMsg" : "This email is not registered"})
+            res.setHeader("content-type","application/json")
+            res.json({"errorMsg" : "This email is not registered"})
         }
     })
     .catch((err) => {
