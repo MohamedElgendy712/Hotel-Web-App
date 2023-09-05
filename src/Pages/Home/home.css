@@ -1,4 +1,6 @@
-.home {
+/* Landing Section */
+
+.home .landing {
     height: 90vh;
     background-image: url('../../Imgs/Cloudy.svg');
     background-size: cover;
@@ -6,16 +8,16 @@
     display: flex;
 }
 
-.home {
+.home .landing {
     flex-direction: column-reverse;
 }
 
-.home .content,
-.home .photos {
+.home .landing .content,
+.home .landing .photos {
     flex-basis: 100%;
 }
 
-.home .content {
+.home .landing .content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -23,42 +25,42 @@
     font-family: 'Josefin Sans', sans-serif;
 }
 
-.home h2,
-.home h3 {
+.home .landing h2,
+.home .landing h3 {
     font-weight: bold;
     color: var(--white);
     margin-bottom: 36px;
 }
 
-.home h2 {
+.home .landing h2 {
     font-size: 24px;
 }
 
-.home h3 {
+.home .landing h3 {
     font-size: 22px;
 }
 
-.home .feature {
+.home .landing .feature {
     display: flex;
     align-items: center;
 }
 
-.home .feature p {
+.home .landing .feature p {
     font-size: 22px;
     color: var(--white);
     margin-right: 8px;
 }
 
-.home .photos {
+.home .landing .photos {
     position: relative;
 }
 
-.home .plane-ph,
-.home .places-ph {
+.home .landing .plane-ph,
+.home .landing .places-ph {
     position: absolute;
 }
 
-.home .plane-ph {
+.home .landing .plane-ph {
     right: 50%;
     transform: translateX(50%) rotate(-10deg);
     bottom: 5%;
@@ -66,19 +68,176 @@
     z-index: 1;
 }
 
-.home .places-ph {
+.home .landing .places-ph {
     width: 270px;
     bottom: 10%;
     right: 55%;
     transform: translateX(50%);
 }
 
+/* Trending Destination Section */
+.home .trending-destination-section {
+    margin: var(--section-margin-mobile);
+    padding: var(--page-padd-mobile);
+}
+
+.home .trending-destination-section .destinations-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.home .destinations-container .destination-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
+}
+
+.home .destinations-container .destination-first-row,
+.home .destinations-container .destination-second-row {
+    display: flex;
+    flex-direction: column;
+}
+
+.home .destinations-container .destination-first-row .destination-item,
+.home .destinations-container .destination-second-row .destination-item {
+    height: 370px;
+    margin-top: 16px;
+}
+
+.home .destinations-container .destination-item .destination-img {
+    width: 100%;
+    height: 370px;
+    object-fit: cover;
+    transition: .3s;
+}
+
+.home .destinations-container .destination-item .destination-img:hover {
+    scale: 1.1;
+}
+
+.home .destinations-container .destination-item .destination-name {
+    position: absolute;
+    left: 3%;
+    top: 7%;
+    color: var(--white);
+    font-size: 24px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.home .destinations-container .destination-item .destination-name p {
+    margin-right: 8px;
+}
+
+/* Hotels & Apartments Section */
+.home .hotels-section,
+.home .apartments-section {
+    margin: var(--section-margin-mobile);
+    padding: var(--page-padd-mobile);
+}
+
+.home .apartments-section {
+    background-color: var(--main-color);
+}
+
+.home .title,
+.home .title {
+    position: relative;
+    font-size: 40px;
+    font-weight: bold;
+    color: var(--secondry-color);
+    width: fit-content;
+    margin: auto;
+    margin-bottom: 30px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.home .apartments-section .title {
+    color: var(--white);
+}
+
+.home .title::before,
+.home .title::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    height: 2px;
+    width: 80%;
+    background-color: var(--secondry-color);
+}
+
+.home .apartments-section .title::before {
+    background-color: var(--white);
+}
+
+.home .hotels-section .hotels-container {}
+
+.home .hotels-section .hotels-container .view-all,
+.home .apartments-section .apartments-container .view-all {
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--main-color);
+    text-align: right;
+    margin-right: 7px;
+    margin-bottom: 8px;
+    text-decoration: underline;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.home .apartments-section .apartments-container .view-all {
+    color: var(--white);
+}
+
+.home .hotels-section .hotels-container .view-all:hover,
+.home .apartments-section .apartments-container .view-all:hover {
+    color: var(--secondry-color);
+}
+
+.home .hotels-section .hotels-container .hotel-items,
+.home .apartments-section .apartments-container .apartment-items {
+    display: grid;
+    align-items: start;
+    gap: 5px;
+}
+
+/* Email Subscription section */
+.home .email-sub-section{
+    margin: var(--section-margin-mobile);
+    padding: var(--page-padd-mobile);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.home .email-sub-section h2{
+    font-size: 28px;
+    color: var(--secondry-color);
+    margin-bottom: 16px
+}
+.home .email-sub-section p{
+    font-size: 17px;
+    color: var(--gray);
+    margin-bottom: 16px;
+}
+.home .email-sub-section .input-container{
+    flex-direction: column;
+    width: 80%;
+}
+.home .email-sub-section .input-container input{}
+.home .email-sub-section .input-container .subscribe-btn{
+    margin-top: 16;
+}
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 767px) {}
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (min-width: 500px) {
-    .home .plane-ph {
+    .home .landing .plane-ph {
         bottom: -1%;
         width: 475px;
     }
@@ -86,123 +245,206 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
-    .home .content{
+
+    /* Landing Section */
+    .home .landing .content {
         margin-top: 0;
         justify-content: center;
     }
-    .home h2 {
+
+    .home .landing h2 {
         font-size: 44px;
     }
 
-    .home h3 {
+    .home .landing h3 {
         font-size: 36px;
     }
 
-    /* .home .photos {
-        display: block;
-    } */
-
-    .home .plane-ph {
+    .home .landing .plane-ph {
         right: 50%;
         transform: translateX(50%);
         bottom: -15%;
         width: 632px;
     }
 
-    .home .places-ph {
+    .home .landing .places-ph {
         width: 300px;
         bottom: 2%;
         right: 55%;
         transform: translateX(50%);
     }
+
+    /* Trending Section */
+    .home .destinations-container .destination-first-row,
+    .home .destinations-container .destination-second-row {
+        flex-direction: row;
+        gap: 10px;
+    }
+
+    .home .destinations-container .destination-second-row {
+        flex-wrap: wrap;
+    }
+
+    .home .destinations-container .destination-first-row .destination-item {
+        flex-basis: 50%;
+    }
+
+    .home .destinations-container .destination-second-row .destination-item {
+        flex-basis: 49%;
+    }
+
+    .home .destinations-container .destination-second-row .destination-item:first-child {
+        flex-basis: 100%;
+    }
+
+    .home .destinations-container .destination-item .destination-img {
+        height: 100%;
+    }
+
+    /* Hotels Section */
+    .home .hotels-section,
+    .home .apartments-section {
+        margin: var(--section-margin-desktop);
+        padding: var(--page-padd-desktop);
+    }
+
+    .home .hotels-section .hotels-container .hotel-items,
+    .home .apartments-section .apartments-container .apartment-items {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* Email Subscription Section */
+    .home .email-sub-section p{
+        font-size: 20px;
+    }
+    .home .email-sub-section .input-container{
+        flex-direction: row;
+        width: 60%;
+        align-items: stretch;
+    }
+    .home .email-sub-section .input-container input{
+        flex-basis: 65%;
+        margin-right: 8px;
+     }
+    .home .email-sub-section .input-container .subscribe-btn{
+        margin-top: 0;
+        flex-basis: 35%;
+    }
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-    .home {
+    .home .landing {
         flex-direction: row;
     }
 
-    .home .content,
-    .home .photos {
+    .home .landing .content,
+    .home .landing .photos {
         flex-basis: 50%;
     }
 
 
-    .home h2 {
+    .home .landing h2 {
         font-size: 30px;
     }
 
-    .home h3 {
+    .home .landing h3 {
         font-size: 26px;
     }
 
-    .home .photos {
+    .home .landing .photos {
         display: block;
     }
 
-    .home .plane-ph {
+    .home .landing .plane-ph {
         right: 2%;
         bottom: 35%;
         width: 550px;
         transform: rotate(-25deg);
     }
 
-    .home .places-ph {
+    .home .landing .places-ph {
         width: 360px;
         bottom: 40%;
         right: 35%;
         transform: translateX(0);
     }
+
+    /* Trending Section */
+    .home .destinations-container .destination-second-row {
+        flex-wrap: nowrap;
+    }
+
+    .home .destinations-container .destination-second-row .destination-item {
+        flex-basis: 33.33%;
+    }
+
+    .home .destinations-container .destination-second-row .destination-item:first-child {
+        flex-basis: 33.33%;
+    }
+
+    /* Hotels Section */
+    .home .hotels-section .hotels-container .hotel-items,
+    .home .apartments-section .apartments-container .apartment-items {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (min-width: 1200px) {
-    .home h2 {
+    .home .landing h2 {
         font-size: 36px;
     }
 
-    .home h3 {
+    .home .landing h3 {
         font-size: 32px;
     }
 
-    .home .photos {
+    .home .landing .photos {
         display: block;
     }
 
-    .home .plane-ph {
+    .home .landing .plane-ph {
         right: 2%;
         bottom: 30%;
         width: 650px;
     }
 
-    .home .places-ph {
+    .home .landing .places-ph {
         width: 400px;
         bottom: 40%;
         right: 30%;
     }
+
+    .home .hotels-section .hotels-container .hotel-items,
+    .home .apartments-section .apartments-container .apartment-items {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+    }
 }
 
 @media only screen and (min-width: 1400px) {
-    .home h2 {
+    .home .landing h2 {
         font-size: 44px;
     }
 
-    .home h3 {
+    .home .landing h3 {
         font-size: 36px;
     }
 
-    .home .photos {
+    .home .landing .photos {
         display: block;
     }
 
-    .home .plane-ph {
+    .home .landing .plane-ph {
         right: 2%;
         bottom: 30%;
         width: 780px;
     }
 
-    .home .places-ph {
+    .home .landing .places-ph {
         width: 400px;
         bottom: 40%;
         right: 30%;

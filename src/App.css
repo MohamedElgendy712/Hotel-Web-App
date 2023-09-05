@@ -13,8 +13,12 @@
     --transition-time: .3s;
 
     /*Padding*/
-    --page-padd-desktop: 0px 30px;
-    --page-padd-mobile: 0px 20px;
+    --page-padd-desktop: 40px 30px;
+    --page-padd-mobile: 25px 20px;
+
+    /*margin*/
+    --section-margin-desktop : 40px 0;
+    --section-margin-mobile : 25px 0;
 }
 
 /* General Styels */
