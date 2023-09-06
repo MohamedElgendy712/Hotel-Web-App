@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import SignIn from './Pages/SignIn/SignIn';
 import LogIn from './Pages/LogIn/LogIn';
-import Home from './Pages/Home/Home';
+import Home from './Pages/Home/homePage';
 import UserProfile from './Pages/User_Profile/userProfile';
 import NavBar from './Components/NavBar/Navbar';
 
@@ -10,6 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import 'react-notifications-component/dist/theme.css'
+import Footer from './Components/Footer/Footer';
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         <Route path='/login' element={<LogIn />} />
 
       </Routes>
+
+      <Footer />
     </div>
   );
 }

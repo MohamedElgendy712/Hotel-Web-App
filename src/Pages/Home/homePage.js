@@ -114,7 +114,7 @@ const Home = () => {
                     <div className="hotel-items">
                         {
                             hotels.map(hotel => (
-                                <ReservationCard reservation={hotel} />
+                                <ReservationCard key={hotel._id} reservation={hotel} />
                             ))
                         }
                     </div>
@@ -129,7 +129,7 @@ const Home = () => {
                     <div className="apartment-items">
                         {
                             apartments.map(apartment => (
-                                <ReservationCard reservation={apartment} />
+                                <ReservationCard key={apartment._id} reservation={apartment} />
                             ))
                         }
                     </div>

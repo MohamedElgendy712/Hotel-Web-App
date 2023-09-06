@@ -1,0 +1,83 @@
+.footer {
+    margin: var(--section-margin-desktop);
+    padding: var(--page-padd-desktop);
+    background-color: var(--main-color);
+    color: var(--white);
+    margin-bottom: 0;
+    display: flex;
+}
+
+.footer .info-links,
+.footer .reservation-links,
+.footer .support-links {
+    margin-bottom: 0px;
+    flex-basis: 25%;
+}
+
+.footer .info-links p,
+.footer .reservation-links p,
+.footer .support-links p {
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.footer .info-links p:hover,
+.footer .reservation-links p:hover,
+.footer .support-links p:hover {
+    color: var(--secondry-color);
+}
+
+.footer .social-media svg {
+    width: 30px;
+    height: 30px;
+    margin-right: 8px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.footer .social-media svg:hover {
+    color: var(--secondry-color);
+}
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 500px) {
+    .footer {
+        display: block;
+        margin: var(--section-margin-mobile);
+        padding: var(--page-padd-mobile);
+    }
+
+    .footer .info-links,
+    .footer .reservation-links,
+    .footer .support-links {
+        margin-bottom: 16px;
+        border-bottom: 1px solid var(--white);
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .footer {
+        display: flex;
+    }
+
+    .footer .info-links,
+    .footer .reservation-links,
+    .footer .support-links,
+    .footer .social-media {
+        margin-bottom: 0px;
+        flex-basis: 25%;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {}
