@@ -11,6 +11,7 @@ const userLoginController = require('./controllers/userLogin')
 const getHotels = require('./controllers/getHotels')
 const getAppartments = require('./controllers/getAppartments')
 const getReservationDetails = require('./controllers/getReservationDetails')
+const allReservations = require('./controllers/allReservations')
 
 // connect to database
 mongoose.connect('mongodb+srv://mohamed:mo7121998@cluster0.myzh7ct.mongodb.net/hotel-app')
@@ -38,6 +39,7 @@ app.get('/' , (req , res , next) => {
 app.get('/hotels' , getHotels)
 app.get('/appartments' , getAppartments)
 app.get('/getreservationdetails/:id' , getReservationDetails)
+app.get('/allreservations' , allReservations)
 
 app.post('/user/register' , storeUserController)
 app.post('/user/login' , userLoginController)
