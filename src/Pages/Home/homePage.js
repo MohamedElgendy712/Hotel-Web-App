@@ -14,6 +14,7 @@ import uaeFlage from '../../Imgs/uae-flag.png'
 import engFlage from '../../Imgs/engFlag.png'
 import frFlage from '../../Imgs/frFlag.png'
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 
 const Home = () => {
@@ -21,16 +22,15 @@ const Home = () => {
     const [apartments, setApartments] = useState([])
 
     useEffect(() => {
-        axios.get("http://localhost:3000/gethotels", { params: { len: 4 } })
+        axios.get("http://localhost:3000/hotels", { params: { len: 4 } })
             .then(response => {
-                console.log(response.data)
                 setHotels(response.data)
             })
             .catch(error => {
                 console.log(error)
             })
 
-        axios.get("http://localhost:3000/getappartments", { params: { len: 4 } })
+        axios.get("http://localhost:3000/appartments", { params: { len: 4 } })
             .then(response => {
                 setApartments(response.data)
             })
@@ -68,8 +68,8 @@ const Home = () => {
                         <div className="destination-item">
                             <img src={dest1} alt="" className="destination-img" />
                             <div className="destination-name">
-                              <p>Riyadh</p>  
-                              <img src={saFlage} alt="" />
+                                <p>Riyadh</p>
+                                <img src={saFlage} alt="" />
                             </div>
                         </div>
                         <div className="destination-item">
@@ -110,11 +110,13 @@ const Home = () => {
             <div className="hotels-section">
                 <h2 className="title">Hotels</h2>
                 <div className="hotels-container">
-                    <p className="view-all">View All</p>
+                    <Link to={'/allReservations'}><p className="view-all">View All</p></Link>
                     <div className="hotel-items">
                         {
                             hotels.map(hotel => (
-                                <ReservationCard key={hotel._id} reservation={hotel} />
+                                <Link to={`/reservationPage/${hotel._id}`} key={hotel._id}>
+                                    <ReservationCard reservation={hotel} />
+                                </Link>
                             ))
                         }
                     </div>
@@ -125,11 +127,13 @@ const Home = () => {
             <div className="apartments-section">
                 <h2 className="title">Apartments</h2>
                 <div className="apartments-container">
-                    <p className="view-all">View All</p>
+                    <Link to={'/allReservations'}><p className="view-all">View All</p></Link>
                     <div className="apartment-items">
                         {
                             apartments.map(apartment => (
-                                <ReservationCard key={apartment._id} reservation={apartment} />
+                                <Link to={`/reservationPage/${apartment._id}`} key={apartment._id}>
+                                    <ReservationCard reservation={apartment} />
+                                </Link>
                             ))
                         }
                     </div>

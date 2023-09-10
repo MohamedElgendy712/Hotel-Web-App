@@ -35,7 +35,7 @@
     margin-bottom: 16px;
     overflow: hidden;
     display: -webkit-box;
-    -webkit-line-clamp: 2;
+    -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
 
@@ -55,6 +55,9 @@
     font-size: 18px;
     font-weight: 500;
     color: var(--black)
+}
+.reservation-card .description{
+    color: var(--black );
 }
 .reservation-card .view-more-less-btn{
     color: var(--secondry-color);

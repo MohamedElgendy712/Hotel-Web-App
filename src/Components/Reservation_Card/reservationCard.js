@@ -9,7 +9,7 @@ const ReservationCard = ({reservation}) => {
     const description = "Located in Destin, 90 metres from Miramar Beach and 2.8 km from James Lee Park Public Beach, Majestic Sun 202B offers air conditioning. Featuring sea and lake views, this holiday home also provides guests with free WiFi. Featuring a DVD player, the holiday home has a kitchen with a dishwasher, an oven and a microwave, a living room with a seating area and a dining area, 2 bedrooms, and 2 bathrooms with a bath and a shower. Towels and bed linen are featured in the holiday home."
     
     const shorterDescription = (description)=>{
-        return description.substring(0,250) + "..."
+        return description.substring(0,240) + "..."
     }
     return (
         <div key={reservation._id} className='reservation-card'>

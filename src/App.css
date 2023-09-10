@@ -13,12 +13,12 @@
     --transition-time: .3s;
 
     /*Padding*/
-    --page-padd-desktop: 40px 30px;
+    --page-padd-desktop: 40px 50px;
     --page-padd-mobile: 25px 20px;
 
     /*margin*/
     --section-margin-desktop : 40px 0;
-    --section-margin-mobile : 25px 0;
+    --section-margin-mobile : 35px 0;
 }
 
 /* General Styels */
@@ -39,6 +39,7 @@ ul {
 
 a {
     text-decoration: none;
+    display: contents;
 }
 
 /* Inputs */

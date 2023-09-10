@@ -11,6 +11,7 @@ import { Route, Routes } from 'react-router-dom';
 import './App.css';
 import 'react-notifications-component/dist/theme.css'
 import Footer from './Components/Footer/Footer';
+import ReservationPage from './Pages/Reservation Page/reservationPage';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
         <Route path='/signin' element={<SignIn />} />
         <Route path='/login' element={<LogIn />} />
 
+        <Route path='/reservationPage/:id' element={<ReservationPage/>}/>
+
+        <Route path='/userProfile' element={<UserProfile />} />
       </Routes>
 
       <Footer />
