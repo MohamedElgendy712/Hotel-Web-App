@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
-import hotel from '../../Imgs/hotel.jpg'
+import {AiOutlineHeart ,AiFillHeart} from 'react-icons/ai'
+import {PiHeartDuotone} from 'react-icons/pi'
 import './reservationCard.css'
 
 const ReservationCard = ({reservation}) => {
 
     const[viewMore , setViewMore] = useState(false)
-
-    const description = "Located in Destin, 90 metres from Miramar Beach and 2.8 km from James Lee Park Public Beach, Majestic Sun 202B offers air conditioning. Featuring sea and lake views, this holiday home also provides guests with free WiFi. Featuring a DVD player, the holiday home has a kitchen with a dishwasher, an oven and a microwave, a living room with a seating area and a dining area, 2 bedrooms, and 2 bathrooms with a bath and a shower. Towels and bed linen are featured in the holiday home."
+    const[isFavourite , setIsFavourite] = useState(false)
     
     const shorterDescription = (description)=>{
         return description.substring(0,240) + "..."
     }
+
+    const handelFavouriteItem = (event , favourite) =>{
+        event.preventDefault()
+        event.stopPropagation()
+        setIsFavourite(favourite)
+    }
+
     return (
         <div key={reservation._id} className='reservation-card'>
+
+            {/* Favourite Button */}
+            {!isFavourite && <AiOutlineHeart onClick={(event)=>{ handelFavouriteItem(event , !isFavourite) }} className='favourite-btn' />}
+            {isFavourite && <PiHeartDuotone onClick={(event)=>{ handelFavouriteItem(event , !isFavourite) }} className='favourite-btn2' />}
 
             <img src={reservation.images[0]} alt="hotel" className="reserv-img" />
             <div className="info-container">
