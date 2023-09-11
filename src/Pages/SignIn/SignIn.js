@@ -4,10 +4,13 @@ import axios from 'axios';
 import { User } from '../../Models/user';
 
 import './signIn.css'
+import { useNavigate } from 'react-router-dom';
 
 
 
 const SignIn = () => {
+
+    const navigate = useNavigate()
     
     const[firstName , setFirstName] = useState('')
     const[lastName , setLastName] = useState('')
@@ -38,7 +41,7 @@ const SignIn = () => {
 
         axios.post("http://localhost:3000/user/register" , user)
         .then(response =>{
-            console.log(response)
+            navigate("/login")
         })
         .catch(error => {
             error.response.data.map(err =>{
