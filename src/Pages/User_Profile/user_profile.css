@@ -1,7 +1,9 @@
 .user-profile{
+    margin: var(--section-margin-mobile);
     padding: var(--page-padd-mobile);
 }
 
+/* User Information */
 .user-profile .user-info{
 
 }
@@ -49,20 +51,37 @@
     font-weight: 500;
 }
 
-.user-profile .reservations{
+/* User's reservations & favourites &  recomnmended*/
+
+.user-profile .reservations,
+.user-profile .favourites,
+.user-profile .recommended{
     margin-top: 24px;
 }
-.user-profile .reservations .section-header{
+
+.user-profile .section-header{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px;
 }
-.user-profile .reservations .title{
+
+.user-profile .section-header .title{
     color: var(--secondry-color);
-    font-size: 30px;
-    
+    font-size: 20px;
     margin-bottom: 8px;
+    font-family: 'Josefin Sans', sans-serif;
+}
+
+.user-profile .section-header .view-all-btn{
+    font-size: 16px;
+    font-weight: bold;
+    color: var(--main-color);
+    text-decoration: underline;
+    transition: .3s;
+    cursor: pointer;
+}
+.user-profile .section-header .view-all-btn:hover{
+    color: var(--secondry-color);
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -75,7 +94,9 @@
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
+    /* User Information*/
     .user-profile{
+        margin: var(--section-margin-desktop);
         padding: var(--page-padd-desktop);
         display: flex;
     }
@@ -84,10 +105,27 @@
         margin-right: 24px;
     }
 
+    /* User's reservations & favourite & Recommended */
+    .user-profile .user-reservations{
+        flex: 1;
+    }
+    .user-profile .section-header{
+        padding: 0 20px;
+    }
+
+    .user-profile .section-header .title{
+        font-size: 30px;
+    }
+    .user-profile .section-header .view-all-btn{
+        font-size: 18px;
+    }
     .user-profile .reservations{
-        flex-basis: 1;
         overflow: hidden;
         margin-top: 0px;
+    }
+    .user-profile .favourites,
+    .user-profile .recommended{
+        overflow: hidden;
     }
 }
 

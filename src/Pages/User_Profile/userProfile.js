@@ -15,21 +15,18 @@ const UserProfile = () => {
             breakpoint: 950,
             cols: 1,
             rows: 1,
-          },
+        },
         {
-          breakpoint: 1200,
-          cols: 2,
-          rows: 1,
-       
-       
+            breakpoint: 1200,
+            cols: 2,
+            rows: 1,
         },
         {
             breakpoint: 2200,
             cols: 3,
             rows: 1,
-      
-          },
-      ]
+        },
+    ]
 
     return (
         <div className='user-profile'>
@@ -57,40 +54,56 @@ const UserProfile = () => {
                 </div>
             </div>
 
-            {/* User's reservations */}
+            <div className='user-reservations'>
+                {/* User's reservations */}
 
-            <div className="reservations">
-                <div className="confirmed-reservation">
+                <div className="reservations">
+                    <div className="confirmed-reservation">
 
-                    <div className='section-header'>
-                        <h2 className="title">Reservations</h2>
-                        <p>view all</p>
+                        <div className='section-header'>
+                            <h2 className="title">Reservations</h2>
+                            <p className='view-all-btn'>view all</p>
+                        </div>
+                        <div className="reservations-container">
+                            <Carousel responsiveLayout={responsiveLayout} cols={3} rows={1} gap={0}>
+
+
+                            </Carousel>
+                        </div>
                     </div>
-                    <div className="reservations-container">
-                        <Carousel responsiveLayout={responsiveLayout}  cols={3} rows={1} gap={0}>
-                            <Carousel.Item className='test'>
-                                <ReservationCard />
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <ReservationCard />
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <ReservationCard />
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <ReservationCard />
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <ReservationCard />
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <ReservationCard />
-                            </Carousel.Item>
-                            <Carousel.Item>
-                                <ReservationCard />
-                            </Carousel.Item>
-                            
-                        </Carousel>
+                </div>
+
+                {/* User's favourites */}
+                <div className="favourites">
+                    <div className="confirmed-reservation">
+
+                        <div className='section-header'>
+                            <h2 className="title">Favourites</h2>
+                            <p className='view-all-btn'>view all</p>
+                        </div>
+                        <div className="reservations-container">
+                            <Carousel responsiveLayout={responsiveLayout} cols={3} rows={1} gap={0}>
+
+
+                            </Carousel>
+                        </div>
+                    </div>
+                </div>
+
+                {/* User's recomnmended */}
+                <div className="recommended">
+                    <div className="confirmed-reservation">
+
+                        <div className='section-header'>
+                            <h2 className="title">Recommended For You</h2>
+                            <p className='view-all-btn'>view all</p>
+                        </div>
+                        <div className="reservations-container">
+                            <Carousel responsiveLayout={responsiveLayout} cols={3} rows={1} gap={0}>
+
+
+                            </Carousel>
+                        </div>
                     </div>
                 </div>
             </div>
