@@ -6,6 +6,7 @@
     --white: #fff;
     --light-gray: #e0e0e0;
     --gray : #787A91;
+    --light-gray : #e7e7e7;
     --red: #ED2B2A;
     --black: #000;
 
@@ -79,6 +80,7 @@ a {
 
 .input-radio-container{
     display: flex;
+    margin-bottom: 16px;
 }
 
 .input-radio-container .radio-item{

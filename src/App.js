@@ -11,6 +11,7 @@ import { Route, Routes } from 'react-router-dom';
 
 import './App.css';
 import 'react-notifications-component/dist/theme.css'
+import AllReservations from './Pages/All Reservations/allReservations';
 
 
 export const userContext = React.createContext()
@@ -37,6 +38,7 @@ function App() {
           <Route path='/signin' element={<SignIn />} />
           <Route path='/login' element={<LogIn setUserData={setUserData} />} />
 
+          <Route path='/allReservations' element={<AllReservations />} />
           <Route path='/reservationPage/:id' element={<ReservationPage />} />
 
           <Route path='/userProfile' element={<UserProfile />} />
