@@ -2,6 +2,7 @@ const express = require("express")
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
+const expressSession = require('express-session')
 
 const Reservation = require('./models/reservation')
 
@@ -22,6 +23,9 @@ const app = express();
 app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
+app.use(expressSession({
+    secret : "two mm"
+}))
 
 
 // listening to port
@@ -30,11 +34,11 @@ app.listen(3000 , () =>{
 })
 
 app.get('/' , (req , res , next) => {
-    console.log(req.query);
     res.statusCode = 200
     res.setHeader('content-type' , 'application/json')
     res.json({"msg":'Hello'})
 })
+
 
 app.get('/hotels' , getHotels)
 app.get('/appartments' , getAppartments)

@@ -8,6 +8,9 @@ module.exports = (req , res , next) => {
             bcrypt.compare(req.body.password , user.password)
             .then((same) =>{
                 if(same){
+                    // Add user._id to req.session to check for every request if the user is still login or no
+                    req.session.userId = user._id
+                    console.log("login" , req.session)
                     res.statusCode = 200
                     res.setHeader("content-type","application/json")
                     res.json(user)
