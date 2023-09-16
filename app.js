@@ -20,13 +20,15 @@ mongoose.connect('mongodb+srv://mohamed:mo7121998@cluster0.myzh7ct.mongodb.net/h
 const app = express();
 
 //set up middlewares
-app.use(cors())
+app.use(cors({
+    origin : "http://localhost:3001",
+    credentials : true
+}))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(expressSession({
     secret : "two mm"
 }))
-
 
 // listening to port
 app.listen(3000 , () =>{
