@@ -20,9 +20,10 @@ import { Link } from 'react-router-dom';
 const Home = () => {
     const [hotels, setHotels] = useState([])
     const [apartments, setApartments] = useState([])
-
+    
     useEffect(() => {
-        axios.get("http://localhost:3000/hotels", { params: { len: 4 } })
+        axios.defaults.withCredentials = true
+        axios.get("http://localhost:3000/hotels", { params: { len: 4 } } )
             .then(response => {
                 setHotels(response.data)
             })
@@ -30,7 +31,7 @@ const Home = () => {
                 console.log(error)
             })
 
-        axios.get("http://localhost:3000/appartments", { params: { len: 4 } })
+        axios.get("http://localhost:3000/appartments", { params: { len: 4 } } )
             .then(response => {
                 setApartments(response.data)
             })
