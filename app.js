@@ -13,6 +13,10 @@ const getHotels = require('./controllers/getHotels')
 const getAppartments = require('./controllers/getAppartments')
 const getReservationDetails = require('./controllers/getReservationDetails')
 const allReservations = require('./controllers/allReservations')
+const getUser = reqiure("./controllers/getUser.js")
+const userLogout = require('./controllers/userLogout')
+const addToFavorite = require('./controllers/addToFavorite')
+const removeFromFavorite = require('./controllers/removeFromFavorite')
 
 // connect to database
 mongoose.connect('mongodb+srv://mohamed:mo7121998@cluster0.myzh7ct.mongodb.net/hotel-app')
@@ -46,9 +50,13 @@ app.get('/hotels' , getHotels)
 app.get('/appartments' , getAppartments)
 app.get('/getreservationdetails/:id' , getReservationDetails)
 app.get('/allreservations' , allReservations)
+app.get('/getuser' , getUser)
+app.get('/logout' , userLogout)
 
 app.post('/user/register' , storeUserController)
 app.post('/user/login' , userLoginController)
+app.post('/addtofavorite' , addToFavorite)
+app.post('/removefromfavorite' , removeFromFavorite)
 
 // API for add data
 app.post('/reservation' , (req , res , next) =>{

@@ -28,7 +28,9 @@ const userSchema = new Schema({
     birthDate: {
         type: String,
         default : null
-    }
+    },
+    favorite : Array,
+    reservations : Array
 })
 
 // uniqueValidator checks the duplicate entry for the database and provide a suitable error
