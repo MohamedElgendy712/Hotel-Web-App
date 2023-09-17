@@ -1,8 +1,8 @@
-const Reservation = require('../models/reservation')
+const User = require('../models/user')
 
 module.exports = (req , res , next) => {
 
-    Reservation.findById(req.session.userId)
+    User.findById(req.session.userId)
     .then((user) => {
 
         if (user != null){

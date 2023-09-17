@@ -13,7 +13,7 @@ const getHotels = require('./controllers/getHotels')
 const getAppartments = require('./controllers/getAppartments')
 const getReservationDetails = require('./controllers/getReservationDetails')
 const allReservations = require('./controllers/allReservations')
-const getUser = reqiure("./controllers/getUser.js")
+const getUser = require("./controllers/getUser.js")
 const userLogout = require('./controllers/userLogout')
 const addToFavorite = require('./controllers/addToFavorite')
 const removeFromFavorite = require('./controllers/removeFromFavorite')
@@ -51,12 +51,12 @@ app.get('/appartments' , getAppartments)
 app.get('/getreservationdetails/:id' , getReservationDetails)
 app.get('/allreservations' , allReservations)
 app.get('/getuser' , getUser)
-app.get('/logout' , userLogout)
 
 app.post('/user/register' , storeUserController)
 app.post('/user/login' , userLoginController)
 app.post('/addtofavorite' , addToFavorite)
 app.post('/removefromfavorite' , removeFromFavorite)
+app.post('/logout' , userLogout)
 
 // API for add data
 app.post('/reservation' , (req , res , next) =>{
