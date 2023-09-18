@@ -54,8 +54,8 @@ app.get('/getuser' , getUser)
 
 app.post('/user/register' , storeUserController)
 app.post('/user/login' , userLoginController)
-app.post('/addtofavorite' , addToFavorite)
-app.post('/removefromfavorite' , removeFromFavorite)
+app.post('/addtofavorite/:reservationId' , addToFavorite)
+app.post('/removefromfavorite/:reservationId' , removeFromFavorite)
 app.post('/logout' , userLogout)
 
 // API for add data

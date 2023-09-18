@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 const bcrypt = require('bcrypt')
 const uniqueValidator = require('mongoose-unique-validator')
 
+
 const userSchema = new Schema({
     firstName: {
         type: String,
@@ -29,8 +30,18 @@ const userSchema = new Schema({
         type: String,
         default : null
     },
-    favorite : Array,
-    reservations : Array
+    favorite : [{
+        
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Reservation'
+        
+    }],
+    reservations : [{
+        
+            type : mongoose.Schema.Types.ObjectId,
+            ref : 'Reservation'
+        
+    }]
 })
 
 // uniqueValidator checks the duplicate entry for the database and provide a suitable error

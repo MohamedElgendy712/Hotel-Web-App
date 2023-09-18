@@ -1,5 +1,3 @@
-const Reservation = require('../models/reservation')
-
 module.exports = (req , res , next) => {
     
     req.session.destroy(() =>{

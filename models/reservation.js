@@ -27,6 +27,6 @@ const reservationSchema = new Schema({
     reviews: [review]
 })
 
-const Reservation = mongoose.model('reservation' , reservationSchema)
+const Reservation = mongoose.model('Reservation' , reservationSchema)
 
 module.exports = Reservation;

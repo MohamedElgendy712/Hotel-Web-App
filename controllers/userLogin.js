@@ -8,7 +8,6 @@ module.exports = (req, res, next) => {
                 bcrypt.compare(req.body.password, user.password)
                     .then((same) => {
                         if (same) {
-
                             // Add user._id to req.session to check for every request if the user is still login or no
                             req.session.userId = user._id
                             res.statusCode = 200
@@ -30,6 +29,7 @@ module.exports = (req, res, next) => {
             }
         })
         .catch((err) => {
+            console.log(err);
             res.statusCode = 500
             res.setHeader("content-type", "application/json")
             res.json({ "errorMsg": "Internal server error" })
