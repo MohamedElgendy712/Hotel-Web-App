@@ -51,10 +51,10 @@
     font-weight: 500;
 }
 
-/* User's reservations & favourites &  recomnmended*/
+/* User's reservations & favorites &  recomnmended*/
 
 .user-profile .reservations,
-.user-profile .favourites,
+.user-profile .favorites,
 .user-profile .recommended{
     margin-top: 24px;
 }
@@ -84,6 +84,14 @@
     color: var(--secondry-color);
 }
 
+.user-profile .clarification{
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 18px;
+    color: var(--gray);
+}
+
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 767px) {
   
@@ -107,7 +115,8 @@
 
     /* User's reservations & favourite & Recommended */
     .user-profile .user-reservations{
-        flex: 1;
+        flex-basis: 75%;
+        overflow: hidden;
     }
     .user-profile .section-header{
         padding: 0 20px;
@@ -123,7 +132,7 @@
         overflow: hidden;
         margin-top: 0px;
     }
-    .user-profile .favourites,
+    .user-profile .favorites,
     .user-profile .recommended{
         overflow: hidden;
     }

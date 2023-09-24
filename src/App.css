@@ -64,7 +64,8 @@ a {
 .input-container input[type="email"],
 .input-container input[type="date"] ,
 .input-container input[type="tel"] ,
-.input-container input[type="password"] {
+.input-container input[type="password"],
+ textarea {
     padding: 10px 8px;
     border-radius: 8px;
     border: 1px solid var(--light-gray)
@@ -73,7 +74,8 @@ a {
 .input-container input[type="text"]:focus,
 .input-container input[type="email"]:focus,
 .input-container input[type="tel"]:focus,
-.input-container input[type="password"]:focus {
+.input-container input[type="password"]:focus,
+textarea:focus {
     outline: none;
     border-color: var(--secondry-color);
 }
@@ -126,6 +128,13 @@ a {
 .btn-outline:hover{
     border-color: var(--main-color);
     color: var(--main-color);
+}
+
+/* Loading */
+.loading{
+    display: flex;
+    margin: auto;
+    height: 90vh !important;
 }
 
 /* Extra small devices (phones, 600px and down) */

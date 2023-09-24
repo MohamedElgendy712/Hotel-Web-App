@@ -100,7 +100,7 @@
     scale: 1.1;
 }
 
-/* Notification & Favourites & Profile Section */
+/* Notification & Favorites & Profile Section */
 .navbar .navbar-content .control-section {
     display: flex;
     align-items: center;
@@ -108,7 +108,7 @@
 }
 
 .navbar .navbar-content .control-section .notification,
-.navbar .navbar-content .control-section .favourites,
+.navbar .navbar-content .control-section .favorites,
 .navbar .navbar-content .control-section .user-picture {
     color: var(--white);
     font-size: 28px;
@@ -116,14 +116,31 @@
 }
 
 .navbar .navbar-content .control-section .notification,
-.navbar .navbar-content .control-section .favourites {
+.navbar .navbar-content .control-section .favorites {
     margin: 16px 22px 16px 0;
     transition: 0.3s;
 }
 
 .navbar .navbar-content .control-section .notification:hover,
-.navbar .navbar-content .control-section .favourites:hover {
+.navbar .navbar-content .control-section .favorites:hover {
     color: var(--main-color);
+}
+
+.navbar .navbar-content .control-section .favorite-container{
+    position: relative;
+}
+.navbar .navbar-content .control-section .favorite-container .no-favourite{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    background-color: var(--red);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
 }
 
 .navbar .navbar-content .control-section .user {
@@ -250,7 +267,7 @@
 
     /* Notification & Favourites & Profile Section */
     .navbar .navbar-content .control-section .notification:hover,
-    .navbar .navbar-content .control-section .favourites:hover,
+    .navbar .navbar-content .control-section .favorites:hover,
     .navbar .navbar-content .control-section .user:hover .user-picture,
     .navbar .navbar-content .control-section .user:hover .user-name {
         color: var(--secondry-color);

@@ -157,6 +157,42 @@
     background-color: #63657a;
 }
 
+/* Reviews Section */
+.reservation-page .reviews{
+    margin: var(--section-margin-mobile);
+    
+}
+.reservation-page .reviews .reviews-container{
+    margin-bottom: 16px;
+}
+.reservation-page .reviews .review-item .avatar{
+    font-size: 60px;
+    color: var(--main-color);
+}
+.reservation-page .reviews .review-item .user-name{
+    font-size: 32px;
+    font-weight: bold;
+    color: var(--main-color);
+    margin-top: 8px;
+    margin-bottom: 16px;
+}
+.reservation-page .reviews .review-item .review-content{
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--gray);
+    max-width: 800px;
+    margin: auto;
+}
+.reservation-page .reviews .review-item .review-content svg{
+    color: var(--main-color);
+}
+
+.reservation-page .reviews .btn-add-review{
+    width: fit-content;
+    display: block;
+    padding: 8px 20px;
+}
+
 .kNBmiK {
     margin: 0;
 }
@@ -168,6 +204,7 @@
 .cudUqG{
     padding-left: 0 !important;
 }
+
 
 /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 767px) {}
@@ -199,7 +236,7 @@
     }
 
     .reservation-page .description,
-    .reservation-page .facilities {
+    .reservation-page .facilities{
         margin: var(--section-margin-desktop);
     }
 
@@ -210,6 +247,12 @@
     .reservation-page .btns-container button {
         max-width: 325px;
         margin-right: 16px;
+    }
+
+    /*Reviews Section*/
+    .reservation-page .reviews{
+        margin: var(--section-margin-desktop);
+       
     }
 }
 

@@ -10,22 +10,35 @@ import { BiLogOut } from 'react-icons/bi'
 
 // import logo from '../../Imgs/logo.png'
 import './navbar.css'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { userContext } from '../../App';
+import axios from 'axios';
 
 const Navbar = () => {
 
-    const user = useContext(userContext)
+    const user = useContext(userContext)    // Get user's data
 
-    const menuRef = useRef(null)
-    const logoutProfileMenuRef = useRef(null)
+    const navigate = useNavigate()
+
+    const menuRef = useRef(null)        // Refernce for main menu
+    const logoutProfileMenuRef = useRef(null)   // Refernce for logout & profile menu
 
     const openCloaseMenu = () => {
         menuRef.current.classList.toggle('open')
     }
 
-    const openCloseLogoutProfileMenu = ()=>{
+    const openCloseLogoutProfileMenu = () => {
         logoutProfileMenuRef.current.classList.toggle('open')
+    }
+
+    const handleLogOut = () => {
+        axios.defaults.withCredentials = true
+        axios.post("http://localhost:3000/logout")
+            .then(response => {
+                console.log(response)
+                navigate('/')
+                navigate(0)     // Refresh the page to complete the logout operation
+            })
     }
 
     return (
@@ -78,24 +91,29 @@ const Navbar = () => {
                     </div>
                 }
 
-                {/* Notification & Favourites & Profile & Logout Buttons */}
+                {/* Notification & Favorites & Profile & Logout Buttons */}
                 {user != null &&
                     <div className="control-section">
 
                         <IoNotificationsOutline className='notification' />
 
-                        <FaRegHeart className='favourites' />
+                        <div className="favorite-container">
+                            <FaRegHeart className='favorites' />
+                            { user.favorite.length > 0 && <span className='no-favourite'>{user.favorite.length}</span>}
+                        </div>
 
                         <div className="user" onClick={openCloseLogoutProfileMenu}>
                             <RxAvatar className='user-picture' />
-                            <p className='user-name'>Marwan Tarek</p>
+                            <p className='user-name'>{user.firstName} {user.lastName}</p>
 
                             <div ref={logoutProfileMenuRef} className="profile-logout-menu">
-                                <div className="profile">
-                                    <BsFillPersonFill />
-                                    <p>My Profile</p>
-                                </div>
-                                <div className="logout">
+                                <Link to='/userProfile'>
+                                    <div className="profile">
+                                        <BsFillPersonFill />
+                                        <p>My Profile</p>
+                                    </div>
+                                </Link>
+                                <div onClick={handleLogOut} className="logout">
                                     <BiLogOut />
                                     <p>Logout</p>
                                 </div>
