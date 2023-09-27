@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { HiOutlineMail, HiOutlinePhone } from 'react-icons/hi'
 import { LiaBirthdayCakeSolid } from 'react-icons/lia'
 import Carousel from 'react-grid-carousel'
@@ -6,13 +6,12 @@ import ReactLoading from 'react-loading';
 import './user_profile.css'
 import avatar from '../../Imgs/user.png'
 import ReservationCard from '../../Components/Reservation_Card/reservationCard';
-import { userContext } from '../../App';
+import { useAuth } from '../../Components/Authorization/auth';
 
 
 const UserProfile = () => {
 
-    const user = useContext(userContext)
-
+    const user = useAuth().user //  user data 
     const responsiveLayout = [
         {
             breakpoint: 950,

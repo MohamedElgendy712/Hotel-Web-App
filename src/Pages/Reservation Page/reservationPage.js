@@ -22,24 +22,40 @@ import { RxAvatar } from 'react-icons/rx'
 import { BiSolidQuoteAltLeft, BiSolidQuoteAltRight } from 'react-icons/bi'
 
 import './reservationPage.css'
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import { Carousel as ReviewSlider } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { userContext } from '../../App';
-import { useContext } from 'react';
-import ReactLoading from 'react-loading';
+import { useAuth } from '../../Components/Authorization/auth';
+import { Store } from 'react-notifications-component';
 
 
 const ReservationPage = () => {
 
-    const user = useContext(userContext)
+    const user = useAuth().user // user data
+    const navigate = useNavigate()
+    const location = useLocation()
+
     const { id } = useParams()
 
     const [reservation, setReservation] = useState({})
     const [reviewBody, setReviewBody] = useState('')
     const [isFavourite, setIsFavourite] = useState(false)
+
+    const notification ={
+        title: "Error",
+        type: "danger",
+        insert: "top",
+        container: "top-right",
+        animationIn: ["animate__animated", "animate__fadeIn"],
+        animationOut: ["animate__animated", "animate__fadeOut"],
+        dismiss: {
+          duration: 3000,
+          pauseOnHover: true,
+          showIcon: true
+        }
+    }
 
     const responsiveLayout = [
         {
@@ -94,6 +110,18 @@ const ReservationPage = () => {
     )
 
     const handleAddReview = () => {
+        if(!user){
+            navigate('/login' , {state : {path : location.pathname}})
+            return
+        }
+
+        if(reviewBody == ''){
+            Store.addNotification({
+                ...notification,
+                message: "Please insert a "
+            });
+        }
+
         axios.defaults.withCredentials = true
         axios.post(`http://localhost:3000/addreview/${reservation._id}`, { reviewBody: reviewBody })
             .then(response => {
@@ -105,6 +133,10 @@ const ReservationPage = () => {
     }
 
     const addToFavourite = () => {
+        if(!user){
+            navigate('/login' , {state : {path : location.pathname}})
+            return
+        }
 
         axios.defaults.withCredentials = true
 
@@ -124,12 +156,18 @@ const ReservationPage = () => {
             })
     }
 
-    const handleUserReserve = () =>{
+    const handleUserReserve = () => {
+
+        if(!user){
+            navigate('/login' , {state : {path : location.pathname}})
+            return
+        }
+
         axios.defaults.withCredentials = true
         axios.post(`http://localhost:3000/userreservation/${id}`)
-        .catch(error => {
-            console.log(error)
-        })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     const checkIsFavorite = (id) => {
@@ -148,135 +186,130 @@ const ReservationPage = () => {
             })
     }, [])
 
-    useEffect(()=>{
-        if(user != null ) checkIsFavorite(id)
-    } , [user])
+    useEffect(() => {
+        if (user != null) checkIsFavorite(id)
+    }, [user])
 
     return (
-        <>
-            {
-                user == null && 
-                <ReactLoading type={'spin'} color='#003b95' width='100px' className='loading'/>
-            }
-            {
-                user != null &&
 
-                <div className='reservation-page'>
+        <div className='reservation-page'>
 
-                    {/* Title & Location */}
-                    <h2 className="title">{reservation.title}</h2>
+            {/* Title & Location */}
+            <h2 className="title">{reservation.title}</h2>
 
-                    <div className="location">
-                        <FaLocationDot />
-                        <p>{reservation.location}</p>
+            <div className="location">
+                <FaLocationDot />
+                <p>{reservation.location}</p>
+            </div>
+
+            {/* Rating & Number of reviews & price */}
+            <div className='price-review-container'>
+                <div className="review">
+                    <p className="rate">{reservation.rating}</p>
+                    {reservation.reviews && <p className="no-reviews">{reservation.reviews.length} reviews</p>}
+                </div>
+
+                <p className='price'>{reservation.price} $ / day</p>
+            </div>
+
+
+
+            {/* Images Slider */}
+            {reservation.images &&
+                <div className="img-slider">
+                    <Carousel responsiveLayout={responsiveLayout} dot={MyDot} showDots={true} cols={3} rows={1} gap={10}>
+                        {
+                            reservation.images.map((img, index) => (
+                                <Carousel.Item key={index} >
+                                    <img src={img} alt="" />
+                                </Carousel.Item>
+                            ))
+                        }
+                    </Carousel>
+                </div>}
+
+            {/* Property Highlights Section */}
+            {reservation.propertyHighlights &&
+                <div className="property-highlights">
+                    <h2 className="section-title">Property Highlights</h2>
+                    <div className="property-container">
+                        {
+                            reservation.propertyHighlights.map((property, index) => (
+                                <div className="property-item" key={index} >
+                                    {propertyHighlightsIcons[index]}
+                                    <p>{property}</p>
+                                </div>
+                            ))
+                        }
                     </div>
+                </div>}
 
-                    {/* Rating & Number of reviews & price */}
-                    <div className='price-review-container'>
-                        <div className="review">
-                            <p className="rate">{reservation.rating}</p>
-                            {reservation.reviews && <p className="no-reviews">{reservation.reviews.length} reviews</p>}
-                        </div>
-
-                        <p className='price'>{reservation.price} $ / day</p>
-                    </div>
-
-
-
-                    {/* Images Slider */}
-                    {reservation.images &&
-                        <div className="img-slider">
-                            <Carousel responsiveLayout={responsiveLayout} dot={MyDot} showDots={true} cols={3} rows={1} gap={10}>
-                                {
-                                    reservation.images.map((img, index) => (
-                                        <Carousel.Item key={index} >
-                                            <img src={img} alt="" />
-                                        </Carousel.Item>
-                                    ))
-                                }
-                            </Carousel>
-                        </div>}
-
-                    {/* Property Highlights Section */}
-                    {reservation.propertyHighlights &&
-                        <div className="property-highlights">
-                            <h2 className="section-title">Property Highlights</h2>
-                            <div className="property-container">
-                                {
-                                    reservation.propertyHighlights.map((property, index) => (
-                                        <div className="property-item" key={index} >
-                                            {propertyHighlightsIcons[index]}
-                                            <p>{property}</p>
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        </div>}
-
-                    {/* Description Section */}
-                    {reservation.description &&
-                        <div className="description">
-                            {
-                                reservation.description[0] && <h3 className='desc-title'>{reservation.description[0]}</h3>
-                            }
-                            <div>
-                                <p className='desc-content'>
-                                    {reservation.description[1]}
-                                </p>
-                            </div>
-                        </div>
+            {/* Description Section */}
+            {reservation.description &&
+                <div className="description">
+                    {
+                        reservation.description[0] && <h3 className='desc-title'>{reservation.description[0]}</h3>
                     }
-
-                    {/* Facilities Section */}
-                    {reservation.facilities &&
-                        <div className="facilities">
-                            <h3 className='facilities-title'>Most popular facilities</h3>
-                            <div className="facilities-container">
-                                {
-                                    reservation.facilities.map((facility, index) => (
-                                        <div className="facilities-item" key={index} >
-                                            {facilitiesIcons[index]}
-                                            <p>{facility}</p>
-                                        </div>
-                                    ))
-                                }
-                            </div>
-                        </div>}
-
-                    <div className="btns-container">
-                        <button onClick={handleUserReserve} className='btn-contain'>Reserve</button>
-                        {!isFavourite && <button onClick={() => { setIsFavourite(!isFavourite); addToFavourite() }} className='btn-contain save-btn'>Save to favourite</button>}
-                        {isFavourite && <button onClick={() => { setIsFavourite(!isFavourite); removeFromFavourite() }} className='btn-contain save-btn'>Remove from favourite</button>}
+                    <div>
+                        <p className='desc-content'>
+                            {reservation.description[1]}
+                        </p>
                     </div>
-
-                    {/* Review Sections */}
-                    <div className="reviews">
-                        <h2 className="section-title">Reviews</h2>
-
-                        {reservation.reviews && <div className="reviews-container">
-                            <ReviewSlider
-                                showIndicators={false}
-                                showStatus={false}
-                                autoPlay={true}
-                                infiniteLoop={true}
-                                showThumbs={false}
-                            >
-                                {reservation.reviews.map((review, index) => (
-                                    <div key={index} className="review-item">
-                                        <RxAvatar className='avatar' />
-                                        <p className='user-name'>{review.userId.firstName} {review.userId.lastName}</p>
-                                        <p className='review-content'><BiSolidQuoteAltLeft /> {review.reviewBody} <BiSolidQuoteAltRight /></p>
-                                    </div>
-                                ))}
-                            </ReviewSlider>
-                        </div>}
-
-                        <textarea onChange={(e) => { setReviewBody(e.target.value) }} name="review-body" id="review-body" cols="45" rows="5" placeholder='Write your review here' value={reviewBody}></textarea>
-                        <button onClick={handleAddReview} className='btn-contain btn-add-review'>Add Review</button>
-                    </div>
-                </div >
+                </div>
             }
-        </>
+
+            {/* Facilities Section */}
+            {reservation.facilities &&
+                <div className="facilities">
+                    <h3 className='facilities-title'>Most popular facilities</h3>
+                    <div className="facilities-container">
+                        {
+                            reservation.facilities.map((facility, index) => (
+                                <div className="facilities-item" key={index} >
+                                    {facilitiesIcons[index]}
+                                    <p>{facility}</p>
+                                </div>
+                            ))
+                        }
+                    </div>
+                </div>}
+
+            <div className="btns-container">
+                <button onClick={handleUserReserve} className='btn-contain'>Reserve</button>
+                {!isFavourite && <button onClick={() => { setIsFavourite(!isFavourite); addToFavourite() }} className='btn-contain save-btn'>Save to favourite</button>}
+                {isFavourite && <button onClick={() => { setIsFavourite(!isFavourite); removeFromFavourite() }} className='btn-contain save-btn'>Remove from favourite</button>}
+            </div>
+
+            {/* Review Sections */}
+            <div className="reviews">
+                <h2 className="section-title">Reviews</h2>
+
+                {reservation.reviews && <div className="reviews-container">
+                    <ReviewSlider
+                        showIndicators={false}
+                        showStatus={false}
+                        autoPlay={true}
+                        infiniteLoop={true}
+                        showThumbs={false}
+                    >
+                        {reservation.reviews.map((review, index) => (
+                            <div key={index} className="review-item">
+                                <p className='review-date'>{review.datePost}</p>
+                                <RxAvatar className='avatar' />
+                                <p className='user-name'>{review.userId.firstName} {review.userId.lastName}</p>
+                                
+                                <p className='review-content'><BiSolidQuoteAltLeft /> {review.reviewBody} <BiSolidQuoteAltRight /></p>
+                                
+                            </div>
+                        ))}
+                    </ReviewSlider>
+                </div>}
+
+                <textarea onChange={(e) => { setReviewBody(e.target.value) }} name="review-body" id="review-body" cols="45" rows="5" placeholder='Write your review here' value={reviewBody}></textarea>
+                <button onClick={handleAddReview} className='btn-contain btn-add-review'>Add Review</button>
+            </div>
+        </div >
+
     );
 }
 

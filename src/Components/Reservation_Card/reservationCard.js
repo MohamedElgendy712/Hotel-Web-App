@@ -4,8 +4,13 @@ import {PiHeartDuotone} from 'react-icons/pi'
 import './reservationCard.css'
 import axios from 'axios';
 import { useEffect } from 'react';
+import { useAuth } from '../Authorization/auth';
+import { useNavigate } from 'react-router-dom';
 
 const ReservationCard = ({reservation , Isfavourite}) => {
+
+    const user = useAuth().user
+    const navigate = useNavigate()
 
     const[viewMore , setViewMore] = useState(false)
     const[isFavourite , setIsFavourite] = useState(false)
@@ -15,6 +20,7 @@ const ReservationCard = ({reservation , Isfavourite}) => {
     }
 
     const handelFavouriteItem = (event , favourite) =>{
+        if(!user) navigate('/login')
 
         // to disabel the event from propagating to the parent element
         event.preventDefault()
@@ -24,7 +30,8 @@ const ReservationCard = ({reservation , Isfavourite}) => {
     }
 
     const addToFavourite = (event)=>{
-
+        if(!user) navigate('/login')
+        
         // to disabel the event from propagating to the parent element
         event.preventDefault()
         event.stopPropagation()

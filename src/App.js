@@ -4,6 +4,7 @@ import Home from './Pages/Home/homePage';
 import UserProfile from './Pages/User_Profile/userProfile';
 import NavBar from './Components/NavBar/Navbar';
 import Footer from './Components/Footer/Footer';
+import ProtectRoute from './Components/ProtectRoute/protectRoute'
 import ReservationPage from './Pages/Reservation Page/reservationPage';
 import React, { useEffect, useState } from 'react';
 import { ReactNotifications } from 'react-notifications-component'
@@ -13,33 +14,18 @@ import './App.css';
 import 'react-notifications-component/dist/theme.css'
 import AllReservations from './Pages/All Reservations/allReservations';
 import axios from 'axios';
+import { AuthProvider, useAuth } from './Components/Authorization/auth';
 
-
-export const userContext = React.createContext()
 
 function App() {
-  const [user, setUser] = useState(null)
 
-  const setUserData = (user) => {
-    setUser(user)
-  }
-
-  useEffect(()=>{
-    axios.defaults.withCredentials = true;
-    axios.get("http://localhost:3000/getUser")
-    .then(response => {
-      setUser(response.data)
-    })
-    .catch(error => {
-      console.log(error)
-    })
-  },[])
+  let auth = useAuth() // control user data & login & logout
 
   return (
     <div className="App">
       <ReactNotifications />
 
-      <userContext.Provider value={user} >
+      <AuthProvider>
 
         <NavBar />
 
@@ -48,15 +34,16 @@ function App() {
           <Route path='/' element={<Home />} />
 
           <Route path='/signin' element={<SignIn />} />
-          <Route path='/login' element={<LogIn setUserData={setUserData} />} />
+          <Route path='/login' element={<LogIn />} />
 
           <Route path='/allReservations' element={<AllReservations />} />
           <Route path='/reservationPage/:id' element={<ReservationPage />} />
 
-          <Route path='/userProfile' element={<UserProfile />} />
+          <Route path='/userProfile' element={<ProtectRoute>
+                                                <UserProfile />
+                                              </ProtectRoute>} />
         </Routes>
-
-      </userContext.Provider>
+      </AuthProvider>
 
       <Footer />
     </div>

@@ -11,12 +11,12 @@ import { BiLogOut } from 'react-icons/bi'
 // import logo from '../../Imgs/logo.png'
 import './navbar.css'
 import { Link, useNavigate } from 'react-router-dom';
-import { userContext } from '../../App';
 import axios from 'axios';
+import { useAuth } from '../Authorization/auth';
 
 const Navbar = () => {
 
-    const user = useContext(userContext)    // Get user's data
+    const auth = useAuth()    // Get user's data
 
     const navigate = useNavigate()
 
@@ -32,13 +32,7 @@ const Navbar = () => {
     }
 
     const handleLogOut = () => {
-        axios.defaults.withCredentials = true
-        axios.post("http://localhost:3000/logout")
-            .then(response => {
-                console.log(response)
-                navigate('/')
-                navigate(0)     // Refresh the page to complete the logout operation
-            })
+        auth.logout()
     }
 
     return (
@@ -84,7 +78,7 @@ const Navbar = () => {
                 </ul>
 
                 {/* Login & Registeration Buttons */}
-                {user == null &&
+                {!auth.user &&
                     <div className='navbar-btns'>
                         <Link to={'/login'}><button className='login-btn'>Log In</button></Link>
                         <Link to={'/signin'}><button className='register-btn'>Register</button></Link>
@@ -92,19 +86,19 @@ const Navbar = () => {
                 }
 
                 {/* Notification & Favorites & Profile & Logout Buttons */}
-                {user != null &&
+                {auth.user &&
                     <div className="control-section">
 
                         <IoNotificationsOutline className='notification' />
 
                         <div className="favorite-container">
                             <FaRegHeart className='favorites' />
-                            { user.favorite.length > 0 && <span className='no-favourite'>{user.favorite.length}</span>}
+                            { auth.user.favorite.length > 0 && <span className='no-favourite'>{auth.user.favorite.length}</span>}
                         </div>
 
                         <div className="user" onClick={openCloseLogoutProfileMenu}>
                             <RxAvatar className='user-picture' />
-                            <p className='user-name'>{user.firstName} {user.lastName}</p>
+                            <p className='user-name'>{auth.user.firstName} {auth.user.lastName}</p>
 
                             <div ref={logoutProfileMenuRef} className="profile-logout-menu">
                                 <Link to='/userProfile'>

@@ -3,14 +3,20 @@ import { Store } from 'react-notifications-component';
 import axios from 'axios';
 
 import './login.css'
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../Components/Authorization/auth';
 
-const LogIn = ({setUserData}) => {
+const LogIn = () => {
+
+    const auth = useAuth() // control user data & login & logout
 
     const[email , setEmail] = useState('')
     const[password , setPassword] = useState('')
 
     const navigate = useNavigate()
+    const location = useLocation()
+
+    const redirectionPath = location.state?.path || '/'
 
     const notification ={
         title: "Error",
@@ -31,8 +37,8 @@ const LogIn = ({setUserData}) => {
 
         axios.post("http://localhost:3000/user/login" , {email : email , password : password})
         .then(response =>{
-            setUserData(response.data)
-            navigate("/")
+            auth.login(response.data)
+            navigate(redirectionPath , {replace : true})
         })
         .catch(error => {
             Store.addNotification({

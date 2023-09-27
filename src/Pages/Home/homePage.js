@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './home.css'
 import ReservationCard from '../../Components/Reservation_Card/reservationCard';
-import ReactLoading from 'react-loading';
 import plane from '../../Imgs/plane.png'
 import places from '../../Imgs/places.png'
 import dest1 from '../../Imgs/dest1.jpg'
@@ -17,13 +16,14 @@ import axios from 'axios';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { userContext } from '../../App';
+import { useAuth } from '../../Components/Authorization/auth';
 
 
 const Home = () => {
     const [hotels, setHotels] = useState([])
     const [apartments, setApartments] = useState([])
-
-    const user = useContext(userContext)
+    
+    const auth = useAuth() // control user data & login & logout
 
     //Fetch Data
     useEffect(() => {
@@ -44,20 +44,17 @@ const Home = () => {
                 console.log(error)
             })
     }, [])
-
+ 
     const checkIsFavorite = (id) => {
-        let favorite = user.favorite.filter(reservation => reservation._id == id)
+        let favorite = auth.user.favorite.filter(reservation => reservation._id == id)
 
         return favorite.length > 0;
     }
 
     return (
         <>
-            {user == null &&
-
-                <ReactLoading type={'spin'} color='#003b95' width='100px' className='loading'/>
-            }
-            {user != null && <div className='home'>
+            
+          <div className='home'>
 
                 {/* Landing Section */}
                 <div className="landing">
@@ -133,7 +130,8 @@ const Home = () => {
                             {
                                 hotels.map(hotel => (
                                     <Link to={`/reservationPage/${hotel._id}`} key={hotel._id}>
-                                        <ReservationCard reservation={hotel} Isfavourite={checkIsFavorite(hotel._id)} />
+                                        {auth.user != null && <ReservationCard reservation={hotel} Isfavourite={checkIsFavorite(hotel._id)} />}
+                                        {auth.user == null  && <ReservationCard reservation={hotel} Isfavourite={false} />}
                                     </Link>
                                 ))
                             }
@@ -150,7 +148,8 @@ const Home = () => {
                             {
                                 apartments.map(apartment => (
                                     <Link to={`/reservationPage/${apartment._id}`} key={apartment._id}>
-                                        <ReservationCard reservation={apartment} Isfavourite={checkIsFavorite(apartment._id)} />
+                                        {auth.user != null && <ReservationCard reservation={apartment} Isfavourite={checkIsFavorite(apartment._id)} />}
+                                        {auth.user == null && <ReservationCard reservation={apartment} Isfavourite={false} />}
                                     </Link>
                                 ))
                             }
@@ -167,7 +166,7 @@ const Home = () => {
                         <button className="btn-contain subscribe-btn">Subscribe</button>
                     </div>
                 </div>
-            </div>}
+            </div>
         </>
     );
 }
