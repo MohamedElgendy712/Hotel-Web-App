@@ -9,8 +9,8 @@ const reviewSchema = new Schema({
     reviewBody: String,
     datePost:{
         type: Date,
-        default: new Date()
-    }
+        default: new Date().toLocaleString()
+        }
 })
 
 module.exports = reviewSchema;

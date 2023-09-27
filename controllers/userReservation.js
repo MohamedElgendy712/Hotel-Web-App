@@ -2,14 +2,14 @@ const User = require('../models/user')
 
 module.exports = (req , res , next) => {
 
-    console.log("innn");
+    
 
     User.findById(req.session.userId)
     .then((user) => {
 
         if (user){
 
-            user.reservations.push(req.params.reservationId)
+            user.reservations.push({reservationId: req.params.reservationId , from: req.body.from , to: req.body.to})
             user.save()
             .then((user) => {
                 res. statusCode = 200

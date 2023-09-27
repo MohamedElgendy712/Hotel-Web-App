@@ -36,12 +36,20 @@ const userSchema = new Schema({
             ref : 'Reservation'
         
     }],
-    reservations : [{
-        
-            type : mongoose.Schema.Types.ObjectId,
-            ref : 'Reservation'
-        
-    }]
+    reservations : [
+        {
+            reservationId:{
+                type : mongoose.Schema.Types.ObjectId,
+                ref : 'Reservation'
+            },
+            from:{
+                type: String,
+            },
+            to:{
+                type: String
+            }
+        }
+    ]
 })
 
 // uniqueValidator checks the duplicate entry for the database and provide a suitable error
