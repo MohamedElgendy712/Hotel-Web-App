@@ -42,11 +42,7 @@ app.listen(3000 , () =>{
     console.log("App is listening to port 3000");
 })
 
-app.get('/' , (req , res , next) => {
-    res.statusCode = 200
-    res.setHeader('content-type' , 'application/json')
-    res.json({"msg":'Hello'})
-})
+
 
 
 app.get('/hotels' , getHotels)
@@ -59,7 +55,7 @@ app.post('/user/register' , storeUserController)
 app.post('/user/login' , userLoginController)
 app.post('/addtofavorite/:reservationId' , addToFavorite)
 app.post('/removefromfavorite/:reservationId' , removeFromFavorite)
-app.post('/logout' , userLogout)
+app.post('/user/logout' , userLogout)
 app.post('/addreview/:reservationId' , addReview)
 app.post('/userreservation/:reservationId' , userReservation)
 app.post('/cancelresrvation/:reservationId' , cancelResrvation)

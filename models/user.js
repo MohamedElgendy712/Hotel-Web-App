@@ -56,16 +56,21 @@ const userSchema = new Schema({
 userSchema.plugin(uniqueValidator)
 
 // Hash the password of a registered user before save it
-userSchema.pre('save' , function(next){
+/*userSchema.pre('save' , function(next){
     const user = this
+
+    console.log(user.password);
     
     bcrypt.hash(user.password , 10)
     .then((hashedPassword) =>{
+        
+        console.log(hashedPassword);
+
         user.password = hashedPassword
         next()
     })
     .catch((err) => console.log(err))
-})
+})*/
 
 const User = mongoose.model('User' , userSchema)
 
