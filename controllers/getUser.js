@@ -6,7 +6,7 @@ module.exports = (req , res , next) => {
 
         User.findById(req.session.userId)
         .populate("favorite")
-        .populate("reservations")
+        .populate("reservations.reservationId")
         .then((user) => {
             res.statusCode = 200
             res.setHeader("contetn-type" , "application/json")

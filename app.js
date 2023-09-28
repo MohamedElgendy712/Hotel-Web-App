@@ -61,8 +61,8 @@ app.post('/addtofavorite/:reservationId' , addToFavorite)
 app.post('/removefromfavorite/:reservationId' , removeFromFavorite)
 app.post('/logout' , userLogout)
 app.post('/addreview/:reservationId' , addReview)
-app.post('./userreservation/:reservationId' , userReservation)
-app.post('./cancelresrvation/:reservationId' , cancelResrvation)
+app.post('/userreservation/:reservationId' , userReservation)
+app.post('/cancelresrvation/:reservationId' , cancelResrvation)
 
 // API for add data
 app.post('/reservation' , (req , res , next) =>{
