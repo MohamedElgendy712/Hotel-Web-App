@@ -5,6 +5,7 @@ module.exports = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then((user) => {
             if (user) {
+
                 bcrypt.compare(req.body.password, user.password)
                     .then((same) => {
                         if (same) {

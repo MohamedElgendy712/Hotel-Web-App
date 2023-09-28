@@ -1,12 +1,12 @@
 const User = require('../models/user')
 
 module.exports = (req , res , next) => {
-   
+
     if (req.session.userId){
 
         User.findById(req.session.userId)
         .populate("favorite")
-        .populate("reservations")
+        .populate("reservations.reservationId")
         .then((user) => {
             res.statusCode = 200
             res.setHeader("contetn-type" , "application/json")
