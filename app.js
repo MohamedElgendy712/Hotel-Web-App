@@ -20,6 +20,7 @@ const removeFromFavorite = require('./controllers/removeFromFavorite')
 const addReview = require('./controllers/addReview')
 const userReservation = require('./controllers/userReservation')
 const cancelResrvation = require('./controllers/cancelReservation')
+const filter = require('./controllers/filter')
 
 // connect to database
 mongoose.connect('mongodb+srv://mohamed:mo7121998@cluster0.myzh7ct.mongodb.net/hotel-app')
@@ -44,12 +45,12 @@ app.listen(3000 , () =>{
 
 
 
-
 app.get('/hotels' , getHotels)
 app.get('/appartments' , getAppartments)
 app.get('/getreservationdetails/:id' , getReservationDetails)
 app.get('/allreservations' , allReservations)
 app.get('/getuser' , getUser)
+app.get('/filter' , filter)
 
 app.post('/user/register' , storeUserController)
 app.post('/user/login' , userLoginController)
