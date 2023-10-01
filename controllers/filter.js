@@ -2,8 +2,16 @@ const Reservation = require("../models/reservation")
 
 module.exports = (req , res , next) => {
 
-    const {fromPrice = "0" , toPrice = "9,999" , type , rate = "0"} = req.body
+    const fromPrice = req.body.fromPrice || "0"
+    const toPrice = req.body.toPrice || "9,999"
+    const type = req.body.type || undefined
+    const rate = req.body.rate || "0"
 
+    console.log(req.body)
+    console.log(fromPrice)
+    console.log(toPrice)
+    console.log(type)
+    console.log(rate)
 
     Reservation.find({
         $and: [{price: {$gte: fromPrice}} , {price: {$lte: toPrice}}],
