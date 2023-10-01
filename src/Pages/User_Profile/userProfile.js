@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HiOutlineMail, HiOutlinePhone } from 'react-icons/hi'
 import { LiaBirthdayCakeSolid } from 'react-icons/lia'
 import Carousel from 'react-grid-carousel'
@@ -7,6 +7,8 @@ import './user_profile.css'
 import avatar from '../../Imgs/user.png'
 import ReservationCard from '../../Components/Reservation_Card/reservationCard';
 import { useAuth } from '../../Components/Authorization/auth';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
 
 const UserProfile = () => {
@@ -30,11 +32,44 @@ const UserProfile = () => {
         },
     ]
 
+    const [recommended, setRecommended] = useState([])
+
+    useEffect(() => {
+        axios.defaults.withCredentials = true
+        axios.get("http://localhost:3000/hotels", { params: { len: 4 } })
+            .then(response => {
+                setRecommended(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
 
     const checkIsFavorite = (id) => {
         let favorite = user.favorite.filter(reservation => reservation._id === id)
 
         return favorite.length > 0;
+    }
+
+    const checkBookStatus =(fromDate , toDate)=>{
+        let from = new Date(fromDate).getTime()
+        let to = new Date(toDate).getTime()
+        
+        let dateObj = new Date();
+        let month = dateObj.getUTCMonth() + 1;
+        month = month < 10 ? '0'+month : month
+        let day = dateObj.getUTCDate();
+        let year = dateObj.getUTCFullYear();
+
+        let date = year + "-" + month + "-" + day
+
+        let current = new Date(date).getTime()
+
+        if(current < from) return "Cancel"
+        else if(current > to) return "Book Again"
+        else{
+            return "In Progress"
+        }
     }
 
     return (
@@ -78,10 +113,10 @@ const UserProfile = () => {
 
                                 <div className='section-header'>
                                     <h2 className="title">Reservations</h2>
-                                    <p className='view-all-btn'>view all</p>
                                 </div>
                                 <div className="reservations-container">
                                     {
+
                                         user.reservations.length === 0 &&
                                         <p className='clarification'>Go and book your next adventure</p>
                                     }
@@ -92,7 +127,9 @@ const UserProfile = () => {
                                             {
                                                 user.reservations.map(reservation => (
                                                     <Carousel.Item>
-                                                        <ReservationCard reservation={reservation} Isfavourite={checkIsFavorite(reservation._id)} />
+                                                        <Link to={`/reservationPage/${reservation.reservationId._id}`}>
+                                                            <ReservationCard reservation={reservation.reservationId} Isfavourite={checkIsFavorite(reservation._id)} bookStatus={checkBookStatus(reservation.from , reservation.to)} />
+                                                        </Link>
                                                     </Carousel.Item>
                                                 ))
                                             }
@@ -108,7 +145,6 @@ const UserProfile = () => {
 
                                 <div className='section-header'>
                                     <h2 className="title">Favourites</h2>
-                                    <p className='view-all-btn'>view all</p>
                                 </div>
                                 <div className="reservations-container">
                                     {
@@ -122,7 +158,9 @@ const UserProfile = () => {
                                             {
                                                 user.favorite.map(reservation => (
                                                     <Carousel.Item>
-                                                        <ReservationCard reservation={reservation} Isfavourite={checkIsFavorite(reservation._id)} />
+                                                        <Link to={`/reservationPage/${reservation._id}`}>
+                                                            <ReservationCard reservation={reservation} Isfavourite={checkIsFavorite(reservation._id)} />
+                                                        </Link>
                                                     </Carousel.Item>
                                                 ))
                                             }
@@ -139,20 +177,24 @@ const UserProfile = () => {
 
                                 <div className='section-header'>
                                     <h2 className="title">Recommended For You</h2>
-                                    <p className='view-all-btn'>view all</p>
+                                    <Link to={'/allReservations'}>
+                                        <p className='view-all-btn'>view all</p>
+                                    </Link>
                                 </div>
                                 <div className="reservations-container">
                                     <Carousel responsiveLayout={responsiveLayout} cols={3} rows={1} gap={0}>
-
-
+                                        {recommended.map(item => (
+                                            <Carousel.Item>
+                                                <Link to={`/reservationPage/${item._id}`}>
+                                                    <ReservationCard reservation={item} Isfavourite={checkIsFavorite(item._id)} />
+                                                </Link>
+                                            </Carousel.Item>
+                                        ))}
                                     </Carousel>
                                 </div>
                             </div>
                         </div>
                     </div>
-
-
-
                 </div>
             }
         </>

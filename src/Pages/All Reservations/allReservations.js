@@ -3,13 +3,12 @@ import { AiOutlineCloseCircle } from 'react-icons/ai'
 import './allReservation.css'
 import axios from 'axios';
 import ReservationCard from '../../Components/Reservation_Card/reservationCard';
+import { Link } from 'react-router-dom';
 
 const AllReservations = () => {
 
     const filterRef = useRef(null)
 
-    const [fromDate, setFromDate] = useState('')
-    const [toDate, setToDate] = useState('')
     const [fromPrice, setFromPrice] = useState('')
     const [toPrice, setToPrice] = useState('')
     const [type, setType] = useState('')
@@ -17,11 +16,13 @@ const AllReservations = () => {
     const [searchValue, setSearchValue] = useState('')
 
     const [allReservations, setAllReservations] = useState([])
+    const [showedData, setShowedData] = useState([])
 
     useEffect(() => {
         axios.get("http://localhost:3000/allreservations")
             .then(reseponse => {
                 setAllReservations(reseponse.data)
+                setShowedData(reseponse.data)
             })
             .catch(error => {
                 console.log(error)
@@ -32,31 +33,62 @@ const AllReservations = () => {
         filterRef.current.classList.toggle('open')
     }
 
+    const currencyFormat = (num) => {
+        return num.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
+    }
+
+    const clearRadioButtons = (name) => {
+        var ele = document.getElementsByName(name);
+        for (var i = 0; i < ele.length; i++)
+            ele[i].checked = false;
+    }
+
+    const handleFilter = () => {
+        axios.defaults.withCredentials = true
+
+        axios.post('http://localhost:3000/filter', { fromPrice: currencyFormat(fromPrice), toPrice: currencyFormat(toPrice), type: type, rate: rate })
+            .then(response => {
+                setAllReservations(response.data)
+                setShowedData(response.data)
+            })
+    }
+
+    const handleClearFilter = () => {
+        setFromPrice('')
+        setToPrice('')
+        setType('')
+        setRate('')
+        clearRadioButtons("reservation-type")
+        clearRadioButtons("rate")
+
+        axios.get("http://localhost:3000/allreservations")
+            .then(reseponse => {
+                setAllReservations(reseponse.data)
+                setShowedData(reseponse.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
+    const handleSearch = (query) => {
+        setShowedData(allReservations.filter(item => item.title.includes(query)))
+    }
+
     return (
         <div className='all-reservation'>
             <div ref={filterRef} className="filters">
 
-                {/* Date Filter */}
+                {/* Price Filter */}
                 <div className="row-container">
-                    <div className="title">Date Filter</div>
+                    <div className="title">Price Filter</div>
                     <AiOutlineCloseCircle onClick={openCloseFilterMenu} className='close-btn' />
                 </div>
                 <div className="input-container">
-                    <label htmlFor="from-date">From</label>
-                    <input onChange={e => setFromDate(e.target.value)} type="date" name="from-date" id="from-date" value={fromDate} placeholder='From Date' />
+                    <input onChange={e => setFromPrice(e.target.value)} type="text" name="from-price" id="from-price" value={fromPrice} placeholder='Min 100$' />
                 </div>
                 <div className="input-container border-bottom">
-                    <label htmlFor="birth-date">To</label>
-                    <input onChange={e => setToDate(e.target.value)} type="date" name="to-date" id="to-date" value={toDate} />
-                </div>
-
-                {/* Price Filter */}
-                <div className="title">Price Filter</div>
-                <div className="input-container">
-                    <input onChange={e => setFromPrice(e.target.value)} type="text" name="from-price" id="from-price" value={fromPrice} placeholder='From' />
-                </div>
-                <div className="input-container border-bottom">
-                    <input onChange={e => setToPrice(e.target.value)} type="text" name="to-price" id="to-price" value={toPrice} placeholder='to' />
+                    <input onChange={e => setToPrice(e.target.value)} type="text" name="to-price" id="to-price" value={toPrice} placeholder='Max 9,999$' />
                 </div>
 
                 {/* Type Filter */}
@@ -95,14 +127,14 @@ const AllReservations = () => {
 
 
                 {/* Filter Buttons */}
-                <button className='btn-contain'>Filter</button>
-                <button className='btn-outline'>Clear Filters</button>
+                <button onClick={handleFilter} className='btn-contain btn'>Filter</button>
+                <button onClick={handleClearFilter} className='btn-outline'>Clear Filters</button>
             </div>
 
             <div className="reservations">
                 <div className='row-container'>
                     <div className="input-container serach-input">
-                        <input onChange={e => setSearchValue(e.target.value)} type="text" name="from-price" id="from-price" value={searchValue} placeholder='Search for your next adventure' />
+                        <input onChange={e => handleSearch(e.target.value)} type="text" name="from-price" id="from-price" placeholder='Search for your next adventure' />
                     </div>
 
                     <p onClick={openCloseFilterMenu} className='filter-btn'>Filters</p>
@@ -110,9 +142,11 @@ const AllReservations = () => {
 
                 <div className="reservation-container">
                     {
-                        allReservations &&
-                        allReservations.map(reservation => (
-                            <ReservationCard key={reservation._id} reservation={reservation} />
+                        showedData &&
+                        showedData.map(reservation => (
+                            <Link to={`/reservationPage/${reservation._id}`}>
+                                <ReservationCard key={reservation._id} reservation={reservation} />
+                            </Link>
                         ))
                     }
                 </div>

@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
         setUser(null)
         axios.defaults.withCredentials = true
-        axios.post("http://localhost:3000/logout")
+        axios.post("http://localhost:3000/user/logout")
             .then(response => {
                 console.log(response)
                 navigate('/')

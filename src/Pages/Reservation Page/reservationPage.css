@@ -124,7 +124,8 @@
 }
 
 .reservation-page .description .desc-title,
-.reservation-page .facilities .facilities-title {
+.reservation-page .facilities .facilities-title,
+.reservation-page .facilities .period-title {
     margin-bottom: 16px;
 }
 
@@ -155,6 +156,11 @@
 
 .reservation-page .save-btn:hover {
     background-color: #63657a;
+}
+
+/* Reservation Period */
+.reservation-page .reserveation-period .date-group{
+    margin-top: 16px;
 }
 
 /* Reviews Section */
@@ -256,6 +262,16 @@
         margin-right: 16px;
     }
 
+    /*Reservation Period*/
+    .reservation-page .reserveation-period .date-group{
+        display: flex;
+    }
+
+    .reservation-page .reserveation-period .date-group .input-container{
+        flex-basis: 40%;
+        margin-right: 16px;
+    }
+
     /*Reviews Section*/
     .reservation-page .reviews{
         margin: var(--section-margin-desktop);
@@ -264,7 +280,19 @@
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {}
+@media only screen and (min-width: 992px) {
+
+    /*Reservation Period*/
+    .reservation-page .reserveation-period .date-group .input-container{
+        flex-basis: 35%;
+    }
+}
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {}
+@media only screen and (min-width: 1200px) {
+    
+    /*Reservation Period*/
+    .reservation-page .reserveation-period .date-group .input-container{
+        flex-basis: 25%;
+    }
+}

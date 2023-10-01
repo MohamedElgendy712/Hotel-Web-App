@@ -7,7 +7,7 @@ import { useEffect } from 'react';
 import { useAuth } from '../Authorization/auth';
 import { useNavigate } from 'react-router-dom';
 
-const ReservationCard = ({reservation , Isfavourite}) => {
+const ReservationCard = ({reservation , Isfavourite , bookStatus}) => {
 
     const user = useAuth().user
     const navigate = useNavigate()
@@ -96,7 +96,10 @@ const ReservationCard = ({reservation , Isfavourite}) => {
                             </>
                     }
                 </p>
-                <button className="btn-contain book-btn">View</button>
+                {bookStatus === 'Book Again' && <button className="btn-contain book-btn">{bookStatus}</button>}
+                {bookStatus === 'In Progress' && <button className="btn-contain book-btn in-progress">{bookStatus}</button>}
+                {bookStatus === 'Cancel' && <button className="btn-contain book-btn cancel">{bookStatus}</button>}
+                {bookStatus == null && <button className="btn-contain book-btn">View</button>}
             </div>
         </div>
     );

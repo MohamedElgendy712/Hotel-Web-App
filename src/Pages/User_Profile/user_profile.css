@@ -1,5 +1,4 @@
 .user-profile{
-    margin: var(--section-margin-mobile);
     padding: var(--page-padd-mobile);
 }
 
@@ -104,7 +103,6 @@
 @media only screen and (min-width: 768px) {
     /* User Information*/
     .user-profile{
-        margin: var(--section-margin-desktop);
         padding: var(--page-padd-desktop);
         display: flex;
     }

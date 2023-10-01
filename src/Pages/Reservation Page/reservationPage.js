@@ -42,8 +42,10 @@ const ReservationPage = () => {
     const [reservation, setReservation] = useState({})
     const [reviewBody, setReviewBody] = useState('')
     const [isFavourite, setIsFavourite] = useState(false)
+    const [fromDate, setFromDate] = useState('')
+    const [toDate, setToDate] = useState('')
 
-    const notification ={
+    const notification = {
         title: "Error",
         type: "danger",
         insert: "top",
@@ -51,9 +53,9 @@ const ReservationPage = () => {
         animationIn: ["animate__animated", "animate__fadeIn"],
         animationOut: ["animate__animated", "animate__fadeOut"],
         dismiss: {
-          duration: 3000,
-          pauseOnHover: true,
-          showIcon: true
+            duration: 3000,
+            pauseOnHover: true,
+            showIcon: true
         }
     }
 
@@ -110,16 +112,18 @@ const ReservationPage = () => {
     )
 
     const handleAddReview = () => {
-        if(!user){
-            navigate('/login' , {state : {path : location.pathname}})
+        if (!user) {
+            navigate('/login', { state: { path: location.pathname } })
             return
         }
 
-        if(reviewBody == ''){
+        if (reviewBody == '') {
             Store.addNotification({
                 ...notification,
-                message: "Please insert a "
+                message: "Please enter a review"
             });
+
+            return
         }
 
         axios.defaults.withCredentials = true
@@ -133,8 +137,8 @@ const ReservationPage = () => {
     }
 
     const addToFavourite = () => {
-        if(!user){
-            navigate('/login' , {state : {path : location.pathname}})
+        if (!user) {
+            navigate('/login', { state: { path: location.pathname } })
             return
         }
 
@@ -156,15 +160,54 @@ const ReservationPage = () => {
             })
     }
 
+    const checkDates = () => {
+        let from = new Date(fromDate).getTime()
+        let to = new Date(toDate).getTime()
+
+        let dateObj = new Date();
+        let month = dateObj.getUTCMonth() + 1;
+        month = month < 10 ? '0'+month : month
+        let day = dateObj.getUTCDate();
+        let year = dateObj.getUTCFullYear();
+
+        let date = year + "-" + month + "-" + day
+
+        let current = new Date(date).getTime()
+
+        if (from < current || to < current) return "Please enter a date in the future"
+        else if (to < from) return "Start date must be before End date"
+        else {
+            return "success"
+        }
+    }
     const handleUserReserve = () => {
 
-        if(!user){
-            navigate('/login' , {state : {path : location.pathname}})
+        if (!user) {
+            navigate('/login', { state: { path: location.pathname } })
             return
         }
 
+        if (fromDate === '' || toDate === '') {
+            Store.addNotification({
+                ...notification,
+                message: "Please enter a date"
+            });
+
+            return;
+        }
+
+        let message = checkDates()
+        if (message !== 'success') {
+            Store.addNotification({
+                ...notification,
+                message: message
+            });
+
+            return;
+        }
+
         axios.defaults.withCredentials = true
-        axios.post(`http://localhost:3000/userreservation/${id}`)
+        axios.post(`http://localhost:3000/userreservation/${id}`, { from: fromDate, to: toDate })
             .catch(error => {
                 console.log(error)
             })
@@ -274,6 +317,22 @@ const ReservationPage = () => {
                     </div>
                 </div>}
 
+            {/* Reservation Period */}
+            <div className="reserveation-period">
+                <h3 className="period-title">Booking period</h3>
+                <div className='date-group'>
+                    <div className="input-container">
+                        <label htmlFor="from-date">From</label>
+                        <input onChange={e => setFromDate(e.target.value)} type="date" name="from-date" id="from-date" value={fromDate} placeholder='from' />
+                    </div>
+                    <div className="input-container">
+                        <label htmlFor="to-date">To</label>
+                        <input onChange={e => setToDate(e.target.value)} type="date" name="to-date" id="to-date" value={toDate} placeholder='to' />
+                    </div>
+                </div>
+            </div>
+
+            {/* Reserve & Save to favorite Buttons */}
             <div className="btns-container">
                 <button onClick={handleUserReserve} className='btn-contain'>Reserve</button>
                 {!isFavourite && <button onClick={() => { setIsFavourite(!isFavourite); addToFavourite() }} className='btn-contain save-btn'>Save to favourite</button>}
@@ -294,12 +353,12 @@ const ReservationPage = () => {
                     >
                         {reservation.reviews.map((review, index) => (
                             <div key={index} className="review-item">
-                                <p className='review-date'>{review.datePost}</p>
+                                <p className='review-date'>{new Date(review.datePost).toLocaleDateString(undefined, { year: 'numeric', month: 'long', day: 'numeric' })}</p>
                                 <RxAvatar className='avatar' />
                                 <p className='user-name'>{review.userId.firstName} {review.userId.lastName}</p>
-                                
+
                                 <p className='review-content'><BiSolidQuoteAltLeft /> {review.reviewBody} <BiSolidQuoteAltRight /></p>
-                                
+
                             </div>
                         ))}
                     </ReviewSlider>
@@ -314,4 +373,3 @@ const ReservationPage = () => {
 }
 
 export default ReservationPage;
-
