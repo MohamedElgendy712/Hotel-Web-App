@@ -14,7 +14,7 @@ module.exports = (req , res , next) => {
 
                 res.statusCode = 200
                 res.setHeader("content-type" , "application/json")
-                res.end()
+                res.json(user)
 
             })
         }else{

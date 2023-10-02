@@ -3,6 +3,8 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const cors = require('cors')
 const expressSession = require('express-session')
+const authenticateWithJWT = require('./authentication/authenticateWithJWT')
+const jwt = require('jsonwebtoken')
 
 const Reservation = require('./models/reservation')
 
@@ -45,15 +47,21 @@ app.listen(3000 , () =>{
 
 
 
+app.post('/user/login' , userLoginController)
+
+
+app.use(authenticateWithJWT.verifyUser)
+
+
 app.get('/hotels' , getHotels)
-app.get('/appartments' , getAppartments)
+app.get('/apartments' , getAppartments)
 app.get('/getreservationdetails/:id' , getReservationDetails)
 app.get('/allreservations' , allReservations)
 app.get('/getuser' , getUser)
 
 app.post('/filter' , filter)
 app.post('/user/register' , storeUserController)
-app.post('/user/login' , userLoginController)
+
 app.post('/addtofavorite/:reservationId' , addToFavorite)
 app.post('/removefromfavorite/:reservationId' , removeFromFavorite)
 app.post('/user/logout' , userLogout)

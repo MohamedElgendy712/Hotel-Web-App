@@ -12,7 +12,7 @@ module.exports = (req , res , next) => {
             user.save()
             .then((user) =>{
                 res.statusCode = 200
-                res.end()
+                res.json(user)
             })
         }else{
 

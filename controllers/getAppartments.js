@@ -1,7 +1,7 @@
 const Reservation = require('../models/reservation')
 
 module.exports = (req , res , next) => {
-    Reservation.find({type: "appartment"})
+    Reservation.find({type: "apartment"})
     .limit(req.query.len)
     .then((appartments) => {
         res.statusCode = 200
