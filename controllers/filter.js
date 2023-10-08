@@ -7,12 +7,6 @@ module.exports = (req , res , next) => {
     const type = req.body.type || undefined
     const rate = req.body.rate || "0"
 
-    console.log(req.body)
-    console.log(fromPrice)
-    console.log(toPrice)
-    console.log(type)
-    console.log(rate)
-
     Reservation.find({
         $and: [{price: {$gte: fromPrice}} , {price: {$lte: toPrice}}],
         rating: {$gte: rate}

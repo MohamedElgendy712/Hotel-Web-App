@@ -46,21 +46,18 @@ app.listen(3000 , () =>{
 })
 
 
-
+app.post('/user/register' , storeUserController)
 app.post('/user/login' , userLoginController)
-
-
-app.use(authenticateWithJWT.verifyUser)
-
+app.post('/filter' , filter)
 
 app.get('/hotels' , getHotels)
 app.get('/apartments' , getAppartments)
 app.get('/getreservationdetails/:id' , getReservationDetails)
 app.get('/allreservations' , allReservations)
-app.get('/getuser' , getUser)
 
-app.post('/filter' , filter)
-app.post('/user/register' , storeUserController)
+app.use(authenticateWithJWT.verifyUser)
+
+app.get('/getuser' , getUser)
 
 app.post('/addtofavorite/:reservationId' , addToFavorite)
 app.post('/removefromfavorite/:reservationId' , removeFromFavorite)
