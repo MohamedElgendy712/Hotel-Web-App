@@ -29,6 +29,8 @@ import { Carousel as ReviewSlider } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { useAuth } from '../../Components/Authorization/auth';
 import { Store } from 'react-notifications-component';
+import SuccessPopup from '../../Components/Success_Popup/successPopup';
+import { useRef } from 'react';
 
 
 const ReservationPage = () => {
@@ -38,6 +40,8 @@ const ReservationPage = () => {
     const location = useLocation()
 
     const { id } = useParams()
+
+    let popupRef = useRef(null)
 
     const [reservation, setReservation] = useState({})
     const [reviewBody, setReviewBody] = useState('')
@@ -112,7 +116,7 @@ const ReservationPage = () => {
     )
 
     const handleAddReview = () => {
-        if (!user) {
+        if (!localStorage.getItem("token")) {
             navigate('/login', { state: { path: location.pathname } })
             return
         }
@@ -127,7 +131,7 @@ const ReservationPage = () => {
         }
 
         axios.defaults.withCredentials = true
-        axios.post(`http://localhost:3000/addreview/${reservation._id}`, { reviewBody: reviewBody })
+        axios.post(`http://localhost:3000/addreview/${reservation._id}`, { reviewBody: reviewBody }, {}, { headers: { "auth-token": localStorage.getItem("token") } })
             .then(response => {
                 console.log(response.data)
             })
@@ -137,14 +141,14 @@ const ReservationPage = () => {
     }
 
     const addToFavourite = () => {
-        if (!user) {
+        if (!localStorage.getItem("token")) {
             navigate('/login', { state: { path: location.pathname } })
             return
         }
 
         axios.defaults.withCredentials = true
 
-        axios.post(`http://localhost:3000/addtofavorite/${reservation._id}`)
+        axios.post(`http://localhost:3000/addtofavorite/${reservation._id}`, {}, { headers: { "auth-token": localStorage.getItem("token") } })
             .catch(error => {
                 console.log(error)
             })
@@ -166,7 +170,7 @@ const ReservationPage = () => {
 
         let dateObj = new Date();
         let month = dateObj.getUTCMonth() + 1;
-        month = month < 10 ? '0'+month : month
+        month = month < 10 ? '0' + month : month
         let day = dateObj.getUTCDate();
         let year = dateObj.getUTCFullYear();
 
@@ -182,7 +186,7 @@ const ReservationPage = () => {
     }
     const handleUserReserve = () => {
 
-        if (!user) {
+        if (!localStorage.getItem("token")) {
             navigate('/login', { state: { path: location.pathname } })
             return
         }
@@ -207,7 +211,10 @@ const ReservationPage = () => {
         }
 
         axios.defaults.withCredentials = true
-        axios.post(`http://localhost:3000/userreservation/${id}`, { from: fromDate, to: toDate })
+        axios.post(`http://localhost:3000/userreservation/${id}`, { from: fromDate, to: toDate }, { headers: { "auth-token": localStorage.getItem("token") } })
+            .then(response => {
+                openClosePopup()
+            })
             .catch(error => {
                 console.log(error)
             })
@@ -217,6 +224,47 @@ const ReservationPage = () => {
         let favorite = user.favorite.filter(reservation => reservation._id == id)
 
         setIsFavourite(favorite.length > 0)
+    }
+
+    const bookBtn = (fromDate, toDate) => {
+        let from = new Date(fromDate).getTime()
+        let to = new Date(toDate).getTime()
+
+        let dateObj = new Date();
+        let month = dateObj.getUTCMonth() + 1;
+        month = month < 10 ? '0' + month : month
+        let day = dateObj.getUTCDate();
+        day = day < 10 ? '0' + day : day
+        let year = dateObj.getUTCFullYear();
+
+        let date = year + "-" + month + "-" + day
+
+        let current = new Date(date).getTime()
+
+        if (current < from)
+            return <button className="btn-contain book-btn cancel">Cancel</button>
+        else if (current < to)
+            return <button className="btn-contain book-btn in-progress">In Progress</button>
+        else
+            return <button onClick={handleUserReserve} className='btn-contain'>Reserve</button>
+    }
+
+    // check if user has this reservation
+    const isUserHasReservation = () => {
+        let userReservation = user ? user.reservations.filter(reservation => reservation.reservationId._id === id) : []
+
+        let size = userReservation.length
+
+        if (size > 0) {
+            return bookBtn(userReservation[size - 1].from, userReservation[size - 1].to)
+        }
+        else {
+            return <button onClick={handleUserReserve} className='btn-contain'>Reserve</button>
+        }
+    }
+
+    const openClosePopup = () => {
+        popupRef.current.openClosePopup()
     }
 
     useEffect(() => {
@@ -236,6 +284,9 @@ const ReservationPage = () => {
     return (
 
         <div className='reservation-page'>
+
+            {/* Popup */}
+            <SuccessPopup ref={popupRef} openClosePopup={openClosePopup} />
 
             {/* Title & Location */}
             <h2 className="title">{reservation.title}</h2>
@@ -334,7 +385,7 @@ const ReservationPage = () => {
 
             {/* Reserve & Save to favorite Buttons */}
             <div className="btns-container">
-                <button onClick={handleUserReserve} className='btn-contain'>Reserve</button>
+                {isUserHasReservation()}
                 {!isFavourite && <button onClick={() => { setIsFavourite(!isFavourite); addToFavourite() }} className='btn-contain save-btn'>Save to favourite</button>}
                 {isFavourite && <button onClick={() => { setIsFavourite(!isFavourite); removeFromFavourite() }} className='btn-contain save-btn'>Remove from favourite</button>}
             </div>

@@ -10,31 +10,43 @@ export const AuthProvider = ({ children }) => {
 
     const [user, setUser] = useState(null)
 
-    const login = (user) => {
+    const updateUserData = (user) => {
         setUser(user)
     }
 
+    const login = (user) => {
+        setUser(user.user)
+        localStorage.setItem("token", user.token)
+    }
+
     const logout = () => {
-        setUser(null)
+
         axios.defaults.withCredentials = true
-        axios.post("http://localhost:3000/user/logout")
+        axios.post("http://localhost:3000/user/logout", {}, { headers: { "auth-token": localStorage.getItem("token") } })
             .then(response => {
                 console.log(response)
+
+                setUser(null)
+                localStorage.clear()
+
                 navigate('/')
                 navigate(0)     // Refresh the page to complete the logout operation
             })
     }
 
     useEffect(() => {
-        axios.defaults.withCredentials = true;
-        axios.get("http://localhost:3000/getUser")
-            .then(response => {
-                setUser(response.data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    },[])
+        if (localStorage.getItem("token")) {
+            axios.defaults.withCredentials = true;
+            axios.get("http://localhost:3000/getUser", { headers: { "auth-token": localStorage.getItem("token") } })
+                .then(response => {
+                    setUser(response.data)
+                })
+                .catch(error => {
+                    console.log(error)
+                    localStorage.clear()
+                })
+        }
+    }, [])
 
     return <AuthContext.Provider value={{ user, login, logout }} >{children}</AuthContext.Provider>
 }

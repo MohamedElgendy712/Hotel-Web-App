@@ -36,7 +36,7 @@ const Home = () => {
                 console.log(error)
             })
 
-        axios.get("http://localhost:3000/appartments", { params: { len: 4 } })
+        axios.get("http://localhost:3000/apartments", { params: { len: 4 } })
             .then(response => {
                 setApartments(response.data)
             })

@@ -59,6 +59,7 @@ const UserProfile = () => {
         let month = dateObj.getUTCMonth() + 1;
         month = month < 10 ? '0'+month : month
         let day = dateObj.getUTCDate();
+        day = day < 10 ? '0'+day : day
         let year = dateObj.getUTCFullYear();
 
         let date = year + "-" + month + "-" + day
@@ -127,7 +128,7 @@ const UserProfile = () => {
                                             {
                                                 user.reservations.map(reservation => (
                                                     <Carousel.Item>
-                                                        <Link to={`/reservationPage/${reservation.reservationId._id}`}>
+                                                        <Link to={`/reservationPage/${reservation.reservationId._id}`} key={reservation.reservationId._id} >
                                                             <ReservationCard reservation={reservation.reservationId} Isfavourite={checkIsFavorite(reservation._id)} bookStatus={checkBookStatus(reservation.from , reservation.to)} />
                                                         </Link>
                                                     </Carousel.Item>
@@ -158,7 +159,7 @@ const UserProfile = () => {
                                             {
                                                 user.favorite.map(reservation => (
                                                     <Carousel.Item>
-                                                        <Link to={`/reservationPage/${reservation._id}`}>
+                                                        <Link to={`/reservationPage/${reservation._id}`} key={reservation._id}>
                                                             <ReservationCard reservation={reservation} Isfavourite={checkIsFavorite(reservation._id)} />
                                                         </Link>
                                                     </Carousel.Item>
@@ -185,7 +186,7 @@ const UserProfile = () => {
                                     <Carousel responsiveLayout={responsiveLayout} cols={3} rows={1} gap={0}>
                                         {recommended.map(item => (
                                             <Carousel.Item>
-                                                <Link to={`/reservationPage/${item._id}`}>
+                                                <Link to={`/reservationPage/${item._id}`} >
                                                     <ReservationCard reservation={item} Isfavourite={checkIsFavorite(item._id)} />
                                                 </Link>
                                             </Carousel.Item>

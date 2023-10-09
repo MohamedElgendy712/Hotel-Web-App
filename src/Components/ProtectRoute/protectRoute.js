@@ -7,7 +7,7 @@ const ProtectRoute = ({children}) => {
     const auth = useAuth()
     const location = useLocation()
 
-    if(!auth.user){
+    if(!localStorage.getItem("token")){
         return <Navigate to={'/login'} state={{path : location.pathname}} />
     }
 

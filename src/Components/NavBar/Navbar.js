@@ -61,12 +61,18 @@ const Navbar = () => {
                         </Link>
                     </li>
                     <li className="navbar-list-item">
-                        <Link>
+                        <Link to={{
+                            pathname : "/allReservations",
+                            search : "?type=hotel"
+                        }}>
                             Hotels
                         </Link>
                     </li>
                     <li className="navbar-list-item">
-                        <Link>
+                        <Link to={{
+                            pathname : "/allReservations",
+                            search : "?type=apartment"
+                        }} >
                             Apartments
                         </Link>
                     </li>

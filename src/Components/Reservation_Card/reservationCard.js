@@ -30,7 +30,7 @@ const ReservationCard = ({reservation , Isfavourite , bookStatus}) => {
     }
 
     const addToFavourite = (event)=>{
-        if(!user) navigate('/login')
+        if(!localStorage.getItem("token")) navigate('/login')
         
         // to disabel the event from propagating to the parent element
         event.preventDefault()
@@ -40,7 +40,10 @@ const ReservationCard = ({reservation , Isfavourite , bookStatus}) => {
 
         axios.defaults.withCredentials = true
 
-        axios.post(`http://localhost:3000/addtofavorite/${reservation._id}`)
+        axios.post(`http://localhost:3000/addtofavorite/${reservation._id}`,{},{headers : {"auth-token": localStorage.getItem("token")}})
+        .then(reseponse =>{
+            console.log(reseponse)
+        })
         .catch(error => {
             console.log(error)
         })
@@ -54,7 +57,10 @@ const ReservationCard = ({reservation , Isfavourite , bookStatus}) => {
 
         axios.defaults.withCredentials = true
 
-        axios.post(`http://localhost:3000/removefromfavorite/${reservation._id}`)
+        axios.post(`http://localhost:3000/removefromfavorite/${reservation._id}`,{},{headers : {"auth-token": localStorage.getItem("token")}})
+        .then(response => {
+            console.log(response)
+        })
         .catch(error => {
             console.log(error)
         })

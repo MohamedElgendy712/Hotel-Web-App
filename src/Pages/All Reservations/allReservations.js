@@ -3,9 +3,14 @@ import { AiOutlineCloseCircle } from 'react-icons/ai'
 import './allReservation.css'
 import axios from 'axios';
 import ReservationCard from '../../Components/Reservation_Card/reservationCard';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const AllReservations = () => {
+
+    const location = useLocation()
+    const queryParams = new URLSearchParams(location.search)
+
+    const typeParam = queryParams.get('type')
 
     const filterRef = useRef(null)
 
@@ -13,12 +18,11 @@ const AllReservations = () => {
     const [toPrice, setToPrice] = useState('')
     const [type, setType] = useState('')
     const [rate, setRate] = useState('')
-    const [searchValue, setSearchValue] = useState('')
 
     const [allReservations, setAllReservations] = useState([])
     const [showedData, setShowedData] = useState([])
 
-    useEffect(() => {
+    const getAllReservations = () => {
         axios.get("http://localhost:3000/allreservations")
             .then(reseponse => {
                 setAllReservations(reseponse.data)
@@ -27,7 +31,7 @@ const AllReservations = () => {
             .catch(error => {
                 console.log(error)
             })
-    }, [])
+    }
 
     const openCloseFilterMenu = () => {
         filterRef.current.classList.toggle('open')
@@ -61,19 +65,35 @@ const AllReservations = () => {
         clearRadioButtons("reservation-type")
         clearRadioButtons("rate")
 
-        axios.get("http://localhost:3000/allreservations")
-            .then(reseponse => {
-                setAllReservations(reseponse.data)
-                setShowedData(reseponse.data)
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        getAllReservations()
     }
 
     const handleSearch = (query) => {
         setShowedData(allReservations.filter(item => item.title.includes(query)))
     }
+
+    const checkRadioButton = (id)=>{
+        let btn = document.getElementById(id)
+        btn.checked = true
+    }
+
+    useEffect(() => {
+        if (typeParam) {
+
+            axios.defaults.withCredentials = true
+
+            axios.post('http://localhost:3000/filter', {  type: typeParam})
+                .then(response => {
+                    setAllReservations(response.data)
+                    setShowedData(response.data)
+                })
+                
+            checkRadioButton(typeParam)
+        }
+        else {
+            getAllReservations()
+        }
+    }, [typeParam])
 
     return (
         <div className='all-reservation'>

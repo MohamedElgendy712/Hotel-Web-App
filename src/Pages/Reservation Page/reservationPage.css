@@ -163,6 +163,15 @@
     margin-top: 16px;
 }
 
+/* Reservation Button */
+.reservation-page .book-btn.in-progress{
+    background-color: #FFA41B;
+}
+
+.reservation-page .book-btn.cancel{
+    background-color: var(--red);
+}
+
 /* Reviews Section */
 .reservation-page .reviews{
     margin: var(--section-margin-mobile);
