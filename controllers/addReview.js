@@ -16,7 +16,7 @@ module.exports = (req , res , next) => {
 
             reservation.save()
             .then((reservation) =>{
-                reservation.populate('userId')
+                reservation.populate('reviews.userId')
                 .then(reservation =>{
                     res.statusCode = 200
                     res.setHeader("content-type" , "application/json")
