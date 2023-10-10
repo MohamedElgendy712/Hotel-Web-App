@@ -12,8 +12,13 @@ module.exports = (req , res , next) => {
             user.reservations.push({reservationId: req.params.reservationId , from: req.body.from , to: req.body.to})
             user.save()
             .then((user) => {
-                res. statusCode = 200
-                res.json(user)
+                user.populate("favorite")
+                user.populate("reservations.reservationId")
+                .then(user => {
+                    res. statusCode = 200
+                    res.json(user)
+                })
+                
             })
             
         }else{

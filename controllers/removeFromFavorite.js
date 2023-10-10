@@ -11,15 +11,17 @@ module.exports = (req , res , next) => {
 
             user.save()
             .then((user) => {
-
-                res.statusCode = 200
-                res.setHeader("content-type" , "application/json")
-                res.json(user)
-
+                user.populate("favorite")
+                user.populate("reservations.reservationId")
+                .then(user => {
+                    res.statusCode = 200
+                    res.setHeader("content-type" , "application/json")
+                    res.json(user)
+                })
             })
         }else{
 
-            err = new Error("User" + req.session.userId + "is not found")
+            err = new Error("User " + req.session.userId + " is not found")
             err.status = 404
             return next(err)
 

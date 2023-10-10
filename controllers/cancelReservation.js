@@ -7,12 +7,17 @@ module.exports = (req , res , next) => {
 
         if(user){
 
-            user.reservations = user.reservations.filter((id) => id != req.params.reservationId)
+            user.reservations = user.reservations.filter((reservationObj) => reservationObj.reservationId != req.params.reservationId)
 
             user.save()
-            .then((user) =>{
-                res.statusCode = 200
-                res.json(user)
+            .then((user) => {
+                user.populate("favorite")
+                user.populate("reservations.reservationId")
+                .then(user => {
+                    res. statusCode = 200
+                    res.json(user)
+                })
+                
             })
         }else{
 

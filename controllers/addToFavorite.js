@@ -9,11 +9,13 @@ module.exports = (req , res , next) => {
             user.favorite.push(req.params.reservationId)
             user.save()
             .then((user) => {
-
-                res.statusCode = 200
-                res.setHeader("content-type" , "application/json")
-                res.json(user)
-
+                user.populate("favorite")
+                user.populate("reservations.reservationId")
+                .then(user => {
+                    res.statusCode = 200
+                    res.setHeader("content-type" , "application/json")
+                    res.json(user)
+                })
             })
 
         }else{
