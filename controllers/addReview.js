@@ -16,9 +16,13 @@ module.exports = (req , res , next) => {
 
             reservation.save()
             .then((reservation) =>{
-                res.statusCode = 200
-                res.setHeader("content-type" , "application/json")
-                res.json(reservation)
+                reservation.populate('userId')
+                .then(reservation =>{
+                    res.statusCode = 200
+                    res.setHeader("content-type" , "application/json")
+                    res.json(reservation)
+                })
+                
             })
 
         }else{
