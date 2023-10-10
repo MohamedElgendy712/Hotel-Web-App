@@ -12,11 +12,14 @@ module.exports = (req , res , next) => {
             user.save()
             .then((user) => {
                 user.populate("favorite")
-                user.populate("reservations.reservationId")
                 .then(user => {
-                    res.statusCode = 200
-                    res.setHeader("content-type" , "application/json")
-                    res.json(user)
+                    user.populate("reservations.reservationId")
+                    .then(user =>{
+                        res.statusCode = 200
+                        res.setHeader("content-type" , "application/json")
+                        res.json(user)
+                    })
+                    
                 })
             })
         }else{
