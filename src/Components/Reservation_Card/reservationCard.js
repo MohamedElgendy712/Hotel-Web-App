@@ -9,7 +9,9 @@ import { useNavigate } from 'react-router-dom';
 
 const ReservationCard = ({reservation , Isfavourite , bookStatus}) => {
 
-    const user = useAuth().user
+    const auth = useAuth()
+    const user = auth.user
+
     const navigate = useNavigate()
 
     const[viewMore , setViewMore] = useState(false)
@@ -41,8 +43,8 @@ const ReservationCard = ({reservation , Isfavourite , bookStatus}) => {
         axios.defaults.withCredentials = true
 
         axios.post(`http://localhost:3000/addtofavorite/${reservation._id}`,{},{headers : {"auth-token": localStorage.getItem("token")}})
-        .then(reseponse =>{
-            console.log(reseponse)
+        .then(response =>{
+            auth.updateUserData(response.data)
         })
         .catch(error => {
             console.log(error)
@@ -59,7 +61,7 @@ const ReservationCard = ({reservation , Isfavourite , bookStatus}) => {
 
         axios.post(`http://localhost:3000/removefromfavorite/${reservation._id}`,{},{headers : {"auth-token": localStorage.getItem("token")}})
         .then(response => {
-            console.log(response)
+            auth.updateUserData(response.data)
         })
         .catch(error => {
             console.log(error)
