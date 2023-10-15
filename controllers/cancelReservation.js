@@ -7,7 +7,8 @@ module.exports = (req , res , next) => {
 
         if(user){
 
-            user.reservations = user.reservations.filter((reservationObj) => reservationObj.reservationId != req.params.reservationId)
+            let reservationIndex = user.reservations.map(reservation => reservation.reservationId).lastIndexOf(req.params.reservationI)
+            user.reservations.splice(reservationIndex , 1)
 
             user.save()
             .then((user) => {
