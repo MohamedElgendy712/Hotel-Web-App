@@ -23,7 +23,7 @@ const AllReservations = () => {
     const [showedData, setShowedData] = useState([])
 
     const getAllReservations = () => {
-        axios.get("http://localhost:3000/allreservations")
+        axios.get("https://hotel-app-backend-zztv.onrender.com/allreservations")
             .then(reseponse => {
                 setAllReservations(reseponse.data)
                 setShowedData(reseponse.data)
@@ -50,7 +50,7 @@ const AllReservations = () => {
     const handleFilter = () => {
         axios.defaults.withCredentials = true
 
-        axios.post('http://localhost:3000/filter', { fromPrice: currencyFormat(fromPrice), toPrice: currencyFormat(toPrice), type: type, rate: rate })
+        axios.post('https://hotel-app-backend-zztv.onrender.com/filter', { fromPrice: currencyFormat(fromPrice), toPrice: currencyFormat(toPrice), type: type, rate: rate })
             .then(response => {
                 setAllReservations(response.data)
                 setShowedData(response.data)
@@ -82,7 +82,7 @@ const AllReservations = () => {
 
             axios.defaults.withCredentials = true
 
-            axios.post('http://localhost:3000/filter', {  type: typeParam})
+            axios.post('https://hotel-app-backend-zztv.onrender.com/filter', {  type: typeParam})
                 .then(response => {
                     setAllReservations(response.data)
                     setShowedData(response.data)

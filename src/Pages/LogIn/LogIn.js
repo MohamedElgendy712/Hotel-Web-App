@@ -35,7 +35,7 @@ const LogIn = () => {
     const onLogIn = ()=>{
         validateForm()
 
-        axios.post("http://localhost:3000/user/login" , {email : email , password : password})
+        axios.post("https://hotel-app-backend-zztv.onrender.com/user/login" , {email : email , password : password})
         .then(response =>{
             auth.login(response.data)
             navigate(redirectionPath , {replace : true})

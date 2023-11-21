@@ -36,7 +36,7 @@ const UserProfile = () => {
 
     useEffect(() => {
         axios.defaults.withCredentials = true
-        axios.get("http://localhost:3000/hotels", { params: { len: 4 } })
+        axios.get("https://hotel-app-backend-zztv.onrender.com/hotels", { params: { len: 4 } })
             .then(response => {
                 setRecommended(response.data)
             })

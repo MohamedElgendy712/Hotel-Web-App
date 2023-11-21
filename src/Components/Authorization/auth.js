@@ -22,7 +22,7 @@ export const AuthProvider = ({ children }) => {
     const logout = () => {
 
         axios.defaults.withCredentials = true
-        axios.post("http://localhost:3000/user/logout", {}, { headers: { "auth-token": localStorage.getItem("token") } })
+        axios.post("https://hotel-app-backend-zztv.onrender.com/user/logout", {}, { headers: { "auth-token": localStorage.getItem("token") } })
             .then(response => {
                 console.log(response)
 
@@ -37,7 +37,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         if (localStorage.getItem("token")) {
             axios.defaults.withCredentials = true;
-            axios.get("http://localhost:3000/getUser", { headers: { "auth-token": localStorage.getItem("token") } })
+            axios.get("https://hotel-app-backend-zztv.onrender.com/getUser", { headers: { "auth-token": localStorage.getItem("token") } })
                 .then(response => {
                     setUser(response.data)
                 })

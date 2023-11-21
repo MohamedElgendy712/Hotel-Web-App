@@ -39,7 +39,7 @@ const SignIn = () => {
 
         const user = new User(firstName , lastName , email , phoneNumber , birthDate , password)
 
-        axios.post("http://localhost:3000/user/register" , user)
+        axios.post("https://hotel-app-backend-zztv.onrender.com/user/register" , user)
         .then(response =>{
             navigate("/login")
         })

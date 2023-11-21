@@ -134,7 +134,7 @@ const ReservationPage = () => {
         }
 
         axios.defaults.withCredentials = true
-        axios.post(`http://localhost:3000/addreview/${reservation._id}`, { reviewBody: reviewBody }, { headers: { "auth-token": localStorage.getItem("token") } })
+        axios.post(`https://hotel-app-backend-zztv.onrender.com/addreview/${reservation._id}`, { reviewBody: reviewBody }, { headers: { "auth-token": localStorage.getItem("token") } })
             .then(response => {
                 setReservation(response.data)
                 setReviewBody('')
@@ -152,7 +152,7 @@ const ReservationPage = () => {
 
         axios.defaults.withCredentials = true
 
-        axios.post(`http://localhost:3000/addtofavorite/${reservation._id}`, {}, { headers: { "auth-token": localStorage.getItem("token") } })
+        axios.post(`https://hotel-app-backend-zztv.onrender.com/addtofavorite/${reservation._id}`, {}, { headers: { "auth-token": localStorage.getItem("token") } })
             .catch(error => {
                 console.log(error)
             })
@@ -162,7 +162,7 @@ const ReservationPage = () => {
 
         axios.defaults.withCredentials = true
 
-        axios.post(`http://localhost:3000/removefromfavorite/${reservation._id}`, {}, { headers: { "auth-token": localStorage.getItem("token") } })
+        axios.post(`https://hotel-app-backend-zztv.onrender.com/removefromfavorite/${reservation._id}`, {}, { headers: { "auth-token": localStorage.getItem("token") } })
             .then(response => {
                 auth.updateUserData(response.data)
             })
@@ -218,7 +218,7 @@ const ReservationPage = () => {
         }
 
         axios.defaults.withCredentials = true
-        axios.post(`http://localhost:3000/userreservation/${id}`, { from: fromDate, to: toDate }, { headers: { "auth-token": localStorage.getItem("token") } })
+        axios.post(`https://hotel-app-backend-zztv.onrender.com/userreservation/${id}`, { from: fromDate, to: toDate }, { headers: { "auth-token": localStorage.getItem("token") } })
             .then(response => {
                 openClosePopup()
                 auth.updateUserData(response.data)
@@ -230,7 +230,7 @@ const ReservationPage = () => {
 
     const handleCancelReservation = ()=>{
         axios.defaults.withCredentials = true
-        axios.post(`http://localhost:3000/cancelresrvation/${id}`, {}, { headers: { "auth-token": localStorage.getItem("token") } })
+        axios.post(`https://hotel-app-backend-zztv.onrender.com/cancelresrvation/${id}`, {}, { headers: { "auth-token": localStorage.getItem("token") } })
             .then(response => {
                 auth.updateUserData(response.data)
                 openCloseCancelPopup()
@@ -292,7 +292,7 @@ const ReservationPage = () => {
     }
 
     useEffect(() => {
-        axios.get(`http://localhost:3000/getreservationdetails/${id}`)
+        axios.get(`https://hotel-app-backend-zztv.onrender.com/getreservationdetails/${id}`)
             .then(response => {
                 setReservation(response.data[0])
             })

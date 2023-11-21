@@ -42,7 +42,7 @@ const ReservationCard = ({reservation , Isfavourite , bookStatus}) => {
 
         axios.defaults.withCredentials = true
 
-        axios.post(`http://localhost:3000/addtofavorite/${reservation._id}`,{},{headers : {"auth-token": localStorage.getItem("token")}})
+        axios.post(`https://hotel-app-backend-zztv.onrender.com/addtofavorite/${reservation._id}`,{},{headers : {"auth-token": localStorage.getItem("token")}})
         .then(response =>{
             auth.updateUserData(response.data)
         })
@@ -59,7 +59,7 @@ const ReservationCard = ({reservation , Isfavourite , bookStatus}) => {
 
         axios.defaults.withCredentials = true
 
-        axios.post(`http://localhost:3000/removefromfavorite/${reservation._id}`,{},{headers : {"auth-token": localStorage.getItem("token")}})
+        axios.post(`https://hotel-app-backend-zztv.onrender.com/removefromfavorite/${reservation._id}`,{},{headers : {"auth-token": localStorage.getItem("token")}})
         .then(response => {
             auth.updateUserData(response.data)
         })
