@@ -31,7 +31,7 @@ const app = express();
 
 //set up middlewares
 app.use(cors({
-    origin : "http://localhost:3001",
+    origin : "https://hotel-app-frontend-yguz.onrender.com",
     credentials : true
 }))
 app.use(bodyParser.json())
