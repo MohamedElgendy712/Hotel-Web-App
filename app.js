@@ -28,6 +28,7 @@ const filter = require('./controllers/filter')
 mongoose.connect('mongodb+srv://mohamed:mo7121998@cluster0.myzh7ct.mongodb.net/hotel-app')
 
 const app = express();
+app.set("trust proxy", 1);
 
 //set up middlewares
 app.use(cors({
