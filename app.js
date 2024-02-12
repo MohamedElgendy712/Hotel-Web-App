@@ -38,7 +38,11 @@ app.use(cors({
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(expressSession({
-    secret : "two mm"
+    secret : "two mm",
+    cookie: {
+        secure: true,
+        sameSite: 'None',
+      }
 }))
 
 // listening to port
